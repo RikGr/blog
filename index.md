@@ -1,3 +1,7 @@
-Blog posts: 
-
-[First blog](_posts/2022-04-15-first-blog.md)
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
