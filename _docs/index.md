@@ -1,1 +1,0 @@
-# Awesome Azure and DevOps tech blog 
