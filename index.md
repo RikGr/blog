@@ -1,6 +1,3 @@
-<!--LIST OF BLOGS-->
 
-<ul>
 {% link _posts/2022-04-25-Create-Logic-Apps-with-Azure-Queue-Connector-using-Bicep %}
 
-</ul>
