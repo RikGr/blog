@@ -1,3 +1,10 @@
 # Blog posts
-{% link /_posts/2022-04-25-Create-Logic-Apps-with-Azure-Queue-Connector-using-Bicep.md%}
+
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
 
