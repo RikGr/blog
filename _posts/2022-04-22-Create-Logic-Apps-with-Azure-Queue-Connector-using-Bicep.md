@@ -3,7 +3,7 @@ layout: post
 title:  "My first week at Xpirit, or how to use bicep to create a Logic App with a Azure Queue connector"
 ---
 
-# How it started 
+## How it started 
 You can create the Infrastructure as Code (IaC) for the Logic Apps they said, it is going to be fun they said. 
 And yes fun it was, at least when I finally fixed it. 
 
@@ -34,7 +34,7 @@ actions: {
 {% endhighlight %}
 
 
-# How it was going
+## How it was going
  
 So how did I troubleshoot: 
 
@@ -49,7 +49,7 @@ So how did I troubleshoot:
   </li>
 </ul>
 
-# How it was fixed
+## How it was fixed
 
 So now I knew it could work. Now it was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API in the Logic App. So I changed some of the *working* bicep to the way I was doing it with a variable for the id: 
 
