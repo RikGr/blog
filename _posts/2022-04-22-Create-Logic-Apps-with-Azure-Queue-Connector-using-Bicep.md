@@ -53,7 +53,7 @@ So how did I troubleshoot:
 
 So now I knew it could work. Now it was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API in the Logic App. So I changed some of the *working* bicep to the way I was doing it with a variable for the id: 
 
-[code]
+{% highlight json %}
 connection: {
                 name: azureQueueConnectionId
               }
