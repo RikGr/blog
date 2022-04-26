@@ -4,17 +4,19 @@ title:  "My first week at Xpirit, or how to use bicep to create a Logic App with
 ---
 
 ## How it started 
-You can create the Infrastructure as Code (IaC) for the Logic Apps they said, it is going to be fun they said. 
-And yes fun it was, at least when I finally fixed it. 
+On April 1st I started my new job at Xpirit as a Azure & DevOps Consultant. As part of the Managed Services team I will focus om implementing and monitoring Azure infrastructure. 
+During my second week my teammates said: "Create the Infrastructure as Code (IaC) for the Logic Apps" "It is going to be fun", they said...
+And yes, fun it was, especially when I finally made it work! 
 
-It all started pretty easy, some of the bicep for the API connection and one Logic App was already there. Although I never had used Logic Apps before and certainly did not create them by code, I was pretty confident I could make this work.
-Soon enough I had the Azure resources available and the Logic App without the API connection was working like a charm. However, the Logic Apps with the Azure Queues connectors kept on failing. In the Logic App Designer this was the error I saw: 
+It all started pretty easy, some of the bicep for the API connection and one Logic App was already there. Although I never  used Logic Apps before and certainly did not create them by code, I was pretty confident I could make this work.
+
+Soon enough I had the Azure resources available and the Logic Apps that did not use the Azure Storage Queue was working like a charm. However, the Logic Apps with the Azure Queues connectors kept on failing. In the Logic App Designer this was the error I saw: 
 
 ![Error](/images/blog-1.1.png)
 
 This was the bicep I had for the Logic App in question: 
 
-{% highlight json %}
+```bicep
 
 actions: {
         'Put_a_message_on_a_queue_(V2)' : {
@@ -31,12 +33,12 @@ actions: {
               path: '/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages'
             
           }
-{% endhighlight %}
+```
 
 
 ## How it was going
  
-So how did I troubleshoot: 
+So how did I troubleshoot the above issue: 
 
 <ul>
   <li>**Documentation** In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular connector. I kept on changing the bicep code here and there and tried build after build to no avail. I started to wonder if this was even possible to do this using bicep. 
@@ -53,16 +55,17 @@ So how did I troubleshoot:
 
 So now I knew it could work. Now it was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API in the Logic App. So I changed some of the *working* bicep to the way I was doing it with a variable for the id: 
 
-{% highlight json %}
+```bicep
 connection: {
                 name: azureQueueConnectionId
               }
-{% endhighlight %}
+```
 
 And there it was! The same error as shown above was thrown
 
 So I finally concluded that the parameter for the **connection name** must be defined in the resource code itself and as a string to make it all work:
 
+```bicep
 {% highlight json %}
 
       actions: {
@@ -95,5 +98,6 @@ So I finally concluded that the parameter for the **connection name** must be de
       }
     }
 
-{% endhighlight %}
+```
 
+## Useful links
