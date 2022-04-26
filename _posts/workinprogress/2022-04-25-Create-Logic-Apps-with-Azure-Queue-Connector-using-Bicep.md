@@ -17,7 +17,6 @@ Soon enough I had the Azure resources available and the Logic Apps that did not 
 This was the bicep I had for the Logic App in question: 
 
 ```bicep
-
 actions: {
         'Put_a_message_on_a_queue_(V2)' : {
           runafter: {}
@@ -66,8 +65,6 @@ And there it was! The same error as shown above was thrown
 So I finally concluded that the parameter for the **connection name** must be defined in the resource code itself and as a string to make it all work:
 
 ```bicep
-{% highlight json %}
-
       actions: {
         'Put_a_message_on_a_queue_(V2)' : {
           runafter: {}
