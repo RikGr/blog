@@ -1,6 +1,6 @@
 ---
-layout: post
-title:  "My first week at Xpirit, or how to use bicep to create a Logic App with a Azure Queue connector"
+layout: default
+title:  "Use bicep to create a Logic App with an Azure Queue connector type"
 ---
 
 ## How it started 
@@ -37,7 +37,7 @@ actions: {
 
 ## How it was going
  
-So how did I troubleshoot the above issue: 
+So how did I troubleshoot: 
 
 <ul>
   <li>**Documentation** In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular connector. I kept on changing the bicep code here and there and tried build after build to no avail. I started to wonder if this was even possible to do this using bicep. 
@@ -98,3 +98,6 @@ So I finally concluded that the parameter for the **connection name** must be de
 ```
 
 ## Useful links
+
+[Microsoft Doc on Azure Queue Connector] (https://docs.microsoft.com/en-us/connectors/azurequeues/)
+[Useful Blog explaining how to use Bicep for Blob Storage Connection] (https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/)
