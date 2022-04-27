@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Use bicep to create a Logic App with an Azure Queue connector type
-name: Rik Groenewoud
+author: Rik Groenewoud
 ---
 
 
