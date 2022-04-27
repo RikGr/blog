@@ -1,4 +1,4 @@
-# Blog posts
+## Blog posts
 
 <ul>
   {% for post in site.posts %}
@@ -9,6 +9,5 @@
 </ul>
 
 
-This site was built using [GitHub Pages](https://pages.github.com/).
 
 
