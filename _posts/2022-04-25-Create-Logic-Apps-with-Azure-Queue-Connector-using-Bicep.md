@@ -1,7 +1,8 @@
 ---
-layout: default
+layout: post
 title:  "Use bicep to create a Logic App with an Azure Queue connector type"
 ---
+
 
 ## How it started 
 On April 1st I started my new job at Xpirit as a Azure & DevOps Consultant. As part of the Managed Services team I will focus om implementing and monitoring Azure infrastructure. 
@@ -64,7 +65,7 @@ And there it was! The same error as shown above was thrown
 
 So I finally concluded that the parameter for the **connection name** must be defined in the resource code itself and as a string to make it all work:
 
-```bicep
+```
       actions: {
         'Put_a_message_on_a_queue_(V2)' : {
           runafter: {}
@@ -97,7 +98,8 @@ So I finally concluded that the parameter for the **connection name** must be de
 
 ```
 
-## Useful links
+## References
 
-[Microsoft Doc on Azure Queue Connector] (https://docs.microsoft.com/en-us/connectors/azurequeues/)
-[Useful Blog explaining how to use Bicep for Blob Storage Connection] (https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/)
+ <a href="https://docs.microsoft.com/en-us/connectors/azurequeues/"> Microsoft Docs on Logic App Azure Queue Connector</a> 
+
+ <a href="https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/"> During troubleshooting I found this nice blog on using Bicep and Logic Apps</a>
