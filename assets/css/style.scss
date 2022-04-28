@@ -10,11 +10,3 @@ section {
 .wrapper {
     width: 70em;
 }
-
-.site-title::before {
-    content: url("/assets/img/logo.png");
-    display: inline-block;
-    position: relative;
-    width: 25px;
-    top: 25px;
-}
