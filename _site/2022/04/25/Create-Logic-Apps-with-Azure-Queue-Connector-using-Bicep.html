@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Use bicep to create a Logic App with an Azure Queue connector type | cloudwoud</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Use bicep to create a Logic App with an Azure Queue connector type" />
+<meta name="author" content="Rik Groenewoud" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How it started On April 1st I started my new job at Xpirit as an Azure &amp; DevOps Consultant. As part of the Managed Services team I will focus on implementing and monitoring Azure infrastructure. During my second week my teammates said: “Create the Infrastructure as Code (IaC) for the Logic Apps”. “It is going to be fun”, they said… And yes, fun it was, especially when I finally made it work! It all started pretty easy, some of the bicep fot the Logic App was already there so I did not have to start from scratch. Although I never used Logic Apps before and certainly did not create them by code, I was pretty confident I could make this work. Soon enough I had the Azure resources available and the Logic Apps that did not use the Azure Storage Queue was working like a charm. However, the Logic Apps with the Azure Queues connector kept on failing. In the Logic App Designer this was the error I saw: This was the bicep I had for the Logic App in question: actions: { &#39;Put_a_message_on_a_queue_(V2)&#39; : { runafter: {} type: &#39;ApiConnection&#39; inputs: { body: &#39;start&#39; host: { connection: { name: azureQueueConnectionId } } method: &#39;post&#39; path: &#39;/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages&#39; } How it was going So how did I troubleshoot: **Documentation** In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular Azure Queues connector. I kept on changing the bicep code here and there and tried build after build to no avail. I started to wonder if it was even possible to do this using bicep. **Github and StackOverflow** I consulted the community and although finding some good help and informational blogs (see References below) I still could not make it work. **Asking my colleagues** I posted the question on our internal Azure Slack channel and sure enough after an initial silence some of my colleagues came to the rescue. They suggested to build the solution via the portal, export it as .JSON, decompile it into bicep and see if I could make that work. Although I already did some testing and comparing the JSON, I decided to give it a try once more including the bicep decompile using az bicep decompile. And yes, now I came somewhere. In my own test environment I managed to build and deploy the Logic App with a *working* Azure Queue connection. How it was fixed So now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the working bicep to the way I was doing it with a variable for the id: connection: { name: azureQueueConnectionId } And there it was! The same error was thrown. So I finally concluded that the parameter connection name must be defined in the resource code itself and as a string to make it all work: actions: { &#39;Put_a_message_on_a_queue_(V2)&#39; : { runafter: {} type: &#39;ApiConnection&#39; inputs: { body: &#39;start&#39; host: { connection: { name: &#39;@parameters(\&#39;$connections\&#39;)[\&#39;azurequeues\&#39;][\&#39;connectionId\&#39;]&#39; } } method: &#39;post&#39; path: &#39;/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages&#39; } } } } parameters: { &#39;$connections&#39;: { value: { azurequeues: { connectionId: logicAppConnection.id connectionName: &#39;LogicAppConnection&#39; id: &#39;/subscriptions/xxxxxxxxxxx/providers/Microsoft.Web/locations/westeurope/managedApis/azurequeues&#39; } } } } With this change I managed to completely automate the deployment of the Logic App as it was designed. Mission Accomplished. References Microsoft Docs on Logic App Azure Queue Connector During troubleshooting I found this nice blog on using Bicep and Logic Apps" />
+<meta property="og:description" content="How it started On April 1st I started my new job at Xpirit as an Azure &amp; DevOps Consultant. As part of the Managed Services team I will focus on implementing and monitoring Azure infrastructure. During my second week my teammates said: “Create the Infrastructure as Code (IaC) for the Logic Apps”. “It is going to be fun”, they said… And yes, fun it was, especially when I finally made it work! It all started pretty easy, some of the bicep fot the Logic App was already there so I did not have to start from scratch. Although I never used Logic Apps before and certainly did not create them by code, I was pretty confident I could make this work. Soon enough I had the Azure resources available and the Logic Apps that did not use the Azure Storage Queue was working like a charm. However, the Logic Apps with the Azure Queues connector kept on failing. In the Logic App Designer this was the error I saw: This was the bicep I had for the Logic App in question: actions: { &#39;Put_a_message_on_a_queue_(V2)&#39; : { runafter: {} type: &#39;ApiConnection&#39; inputs: { body: &#39;start&#39; host: { connection: { name: azureQueueConnectionId } } method: &#39;post&#39; path: &#39;/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages&#39; } How it was going So how did I troubleshoot: **Documentation** In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular Azure Queues connector. I kept on changing the bicep code here and there and tried build after build to no avail. I started to wonder if it was even possible to do this using bicep. **Github and StackOverflow** I consulted the community and although finding some good help and informational blogs (see References below) I still could not make it work. **Asking my colleagues** I posted the question on our internal Azure Slack channel and sure enough after an initial silence some of my colleagues came to the rescue. They suggested to build the solution via the portal, export it as .JSON, decompile it into bicep and see if I could make that work. Although I already did some testing and comparing the JSON, I decided to give it a try once more including the bicep decompile using az bicep decompile. And yes, now I came somewhere. In my own test environment I managed to build and deploy the Logic App with a *working* Azure Queue connection. How it was fixed So now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the working bicep to the way I was doing it with a variable for the id: connection: { name: azureQueueConnectionId } And there it was! The same error was thrown. So I finally concluded that the parameter connection name must be defined in the resource code itself and as a string to make it all work: actions: { &#39;Put_a_message_on_a_queue_(V2)&#39; : { runafter: {} type: &#39;ApiConnection&#39; inputs: { body: &#39;start&#39; host: { connection: { name: &#39;@parameters(\&#39;$connections\&#39;)[\&#39;azurequeues\&#39;][\&#39;connectionId\&#39;]&#39; } } method: &#39;post&#39; path: &#39;/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages&#39; } } } } parameters: { &#39;$connections&#39;: { value: { azurequeues: { connectionId: logicAppConnection.id connectionName: &#39;LogicAppConnection&#39; id: &#39;/subscriptions/xxxxxxxxxxx/providers/Microsoft.Web/locations/westeurope/managedApis/azurequeues&#39; } } } } With this change I managed to completely automate the deployment of the Logic App as it was designed. Mission Accomplished. References Microsoft Docs on Logic App Azure Queue Connector During troubleshooting I found this nice blog on using Bicep and Logic Apps" />
+<link rel="canonical" href="http://localhost:4000/2022/04/25/Create-Logic-Apps-with-Azure-Queue-Connector-using-Bicep.html" />
+<meta property="og:url" content="http://localhost:4000/2022/04/25/Create-Logic-Apps-with-Azure-Queue-Connector-using-Bicep.html" />
+<meta property="og:site_name" content="cloudwoud" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-04-25T00:00:00+02:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Use bicep to create a Logic App with an Azure Queue connector type" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Rik Groenewoud"},"dateModified":"2022-04-25T00:00:00+02:00","datePublished":"2022-04-25T00:00:00+02:00","description":"How it started On April 1st I started my new job at Xpirit as an Azure &amp; DevOps Consultant. As part of the Managed Services team I will focus on implementing and monitoring Azure infrastructure. During my second week my teammates said: “Create the Infrastructure as Code (IaC) for the Logic Apps”. “It is going to be fun”, they said… And yes, fun it was, especially when I finally made it work! It all started pretty easy, some of the bicep fot the Logic App was already there so I did not have to start from scratch. Although I never used Logic Apps before and certainly did not create them by code, I was pretty confident I could make this work. Soon enough I had the Azure resources available and the Logic Apps that did not use the Azure Storage Queue was working like a charm. However, the Logic Apps with the Azure Queues connector kept on failing. In the Logic App Designer this was the error I saw: This was the bicep I had for the Logic App in question: actions: { &#39;Put_a_message_on_a_queue_(V2)&#39; : { runafter: {} type: &#39;ApiConnection&#39; inputs: { body: &#39;start&#39; host: { connection: { name: azureQueueConnectionId } } method: &#39;post&#39; path: &#39;/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages&#39; } How it was going So how did I troubleshoot: **Documentation** In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular Azure Queues connector. I kept on changing the bicep code here and there and tried build after build to no avail. I started to wonder if it was even possible to do this using bicep. **Github and StackOverflow** I consulted the community and although finding some good help and informational blogs (see References below) I still could not make it work. **Asking my colleagues** I posted the question on our internal Azure Slack channel and sure enough after an initial silence some of my colleagues came to the rescue. They suggested to build the solution via the portal, export it as .JSON, decompile it into bicep and see if I could make that work. Although I already did some testing and comparing the JSON, I decided to give it a try once more including the bicep decompile using az bicep decompile. And yes, now I came somewhere. In my own test environment I managed to build and deploy the Logic App with a *working* Azure Queue connection. How it was fixed So now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the working bicep to the way I was doing it with a variable for the id: connection: { name: azureQueueConnectionId } And there it was! The same error was thrown. So I finally concluded that the parameter connection name must be defined in the resource code itself and as a string to make it all work: actions: { &#39;Put_a_message_on_a_queue_(V2)&#39; : { runafter: {} type: &#39;ApiConnection&#39; inputs: { body: &#39;start&#39; host: { connection: { name: &#39;@parameters(\\&#39;$connections\\&#39;)[\\&#39;azurequeues\\&#39;][\\&#39;connectionId\\&#39;]&#39; } } method: &#39;post&#39; path: &#39;/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages&#39; } } } } parameters: { &#39;$connections&#39;: { value: { azurequeues: { connectionId: logicAppConnection.id connectionName: &#39;LogicAppConnection&#39; id: &#39;/subscriptions/xxxxxxxxxxx/providers/Microsoft.Web/locations/westeurope/managedApis/azurequeues&#39; } } } } With this change I managed to completely automate the deployment of the Logic App as it was designed. Mission Accomplished. References Microsoft Docs on Logic App Azure Queue Connector During troubleshooting I found this nice blog on using Bicep and Logic Apps","headline":"Use bicep to create a Logic App with an Azure Queue connector type","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2022/04/25/Create-Logic-Apps-with-Azure-Queue-Connector-using-Bicep.html"},"url":"http://localhost:4000/2022/04/25/Create-Logic-Apps-with-Azure-Queue-Connector-using-Bicep.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=7d2117ea2bb87fb225b192eb43bf78ff88077ebe">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/">cloudwoud</a></h1>
+
+        
+
+        <p>Writing about my Azure cloud and DevOps endeavors </p>
+
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <small>25 April 2022</small>
+<h1>Use bicep to create a Logic App with an Azure Queue connector type</h1>
+
+<p class="view">by Rik Groenewoud</p>
+
+<h2 id="how-it-started">How it started</h2>
+<p>On April 1st I started my new job at Xpirit as an Azure &amp; DevOps Consultant. As part of the Managed Services team I will focus on implementing and monitoring Azure infrastructure. 
+During my second week my teammates said: “Create the Infrastructure as Code (IaC) for the Logic Apps”. “It is going to be fun”, they said…
+And yes, fun it was, especially when I finally made it work!</p>
+
+<p>It all started pretty easy, some of the bicep fot the Logic App was already there so I did not have to start from scratch. Although I never used Logic Apps before and certainly did not create them by code, I was pretty confident I could make this work.</p>
+
+<p>Soon enough I had the Azure resources available and the Logic Apps that did not use the Azure Storage Queue was working like a charm. However, the Logic Apps with the <em>Azure Queues connector</em> kept on failing. In the Logic App Designer this was the error I saw:</p>
+
+<p><img src="/images/blog-1.1.png" alt="Error" /></p>
+
+<p>This was the bicep I had for the Logic App in question:</p>
+
+<pre><code class="language-bicep">actions: {
+        'Put_a_message_on_a_queue_(V2)' : {
+          runafter: {}
+          type: 'ApiConnection'
+          inputs: {
+            body: 'start'
+            host: {
+              connection: {
+                name: azureQueueConnectionId
+              }
+            }
+              method: 'post'
+              path: '/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages'
+            
+          }
+</code></pre>
+
+<h2 id="how-it-was-going">How it was going</h2>
+
+<p>So how did I troubleshoot:</p>
+
+<ul>
+  <li>**Documentation** In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular Azure Queues connector. I kept on changing the bicep code here and there and tried build after build to no avail. I started to wonder if it was even possible to do this using bicep. 
+  </li>
+  <li>**Github and StackOverflow** I consulted the community and although finding some good help and informational blogs (see References below) I still could not make it work.
+  </li>
+  <li>**Asking my colleagues** I posted the question on our internal Azure Slack channel and sure enough after an initial silence some of my colleagues came to the rescue. They suggested to build the solution via the portal, export it as .JSON, decompile it into bicep and see if I could make that work. 
+  Although I already did some testing and comparing the JSON, I decided to give it a try once more including the bicep decompile using <code>az bicep decompile</code>.
+  And yes, now I came somewhere. In my own test environment I managed to build and deploy the Logic App with a *working* Azure Queue connection. 
+  </li>
+</ul>
+
+<h2 id="how-it-was-fixed">How it was fixed</h2>
+
+<p>So now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the <em>working</em> bicep to the way I was doing it with a variable for the id:</p>
+
+<pre><code class="language-bicep">connection: {
+                name: azureQueueConnectionId
+              }
+</code></pre>
+
+<p>And there it was! The same error was thrown.</p>
+
+<p>So I finally concluded that the parameter <strong>connection name</strong> must be defined in the resource code itself and as a <em>string</em> to make it all work:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      actions: {
+        'Put_a_message_on_a_queue_(V2)' : {
+          runafter: {}
+          type: 'ApiConnection'
+          inputs: {
+            body: 'start'
+            host: {
+              connection: {
+                name: '@parameters(\'$connections\')[\'azurequeues\'][\'connectionId\']'
+              }
+            }
+              method: 'post'
+              path: '/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages'
+            
+          }
+        }
+      }
+    }
+    parameters: {
+      '$connections': {
+        value: {
+          azurequeues: {
+            connectionId: logicAppConnection.id
+            connectionName: 'LogicAppConnection'
+            id: '/subscriptions/xxxxxxxxxxx/providers/Microsoft.Web/locations/westeurope/managedApis/azurequeues'
+          }
+        }
+      }
+    }
+
+</code></pre></div></div>
+
+<p>With this change I managed to completely automate the deployment of the Logic App as it was designed. Mission Accomplished.</p>
+
+<h2 id="references">References</h2>
+
+<p><a href="https://docs.microsoft.com/en-us/connectors/azurequeues/"> Microsoft Docs on Logic App Azure Queue Connector</a></p>
+
+<p><a href="https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/"> During troubleshooting I found this nice blog on using Bicep and Logic Apps</a></p>
+
+
+
+  <small>tags: <em></em></small>
+
+
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+  </body>
+</html>
