@@ -3,8 +3,11 @@
 {% include analytics.html %}
 {% endif %}
 </head>
-## Blog posts
 
+
+
+
+## Blog posts
 <ul>
   {% for post in site.posts %}
     <li>
@@ -12,6 +15,12 @@
     </li>
   {% endfor %}
 </ul>
+
+## Contact 
+
+- [LinkedIn](https://www.linkedin.com/in/rikgroenewoud/)
+- [Github](https://github.com/RikGr)
+- [Xpirit](https://xpirit.com/team/rik-groenewoud/)
 
 
 
