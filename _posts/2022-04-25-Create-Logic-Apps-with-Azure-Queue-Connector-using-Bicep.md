@@ -42,11 +42,11 @@ actions: {
 So how did I troubleshoot: 
 
 <ul>
-  <li>**Documentation** In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular Azure Queues connector. I kept on changing the bicep code here and there and tried build after build to no avail. I started to wonder if it was even possible to do this using bicep. 
+  <li><strong>Documentation</strong> In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular Azure Queues connector. I kept on changing the bicep code here and there and tried build after build to no avail. I started to wonder if it was even possible to do this using bicep. 
   </li>
-  <li>**Github and StackOverflow** I consulted the community and although finding some good help and informational blogs (see References below) I still could not make it work.
+  <li><strong>Github and StackOverflow</strong> I consulted the community and although finding some good help and informational blogs (see References below) I still could not make it work.
   </li>
-  <li>**Asking my colleagues** I posted the question on our internal Azure Slack channel and sure enough after an initial silence some of my colleagues came to the rescue. They suggested to build the solution via the portal, export it as .JSON, decompile it into bicep and see if I could make that work. 
+  <li><strong>Asking my colleagues</strong> I posted the question on our internal Azure Slack channel and sure enough after an initial silence some of my colleagues came to the rescue. They suggested to build the solution via the portal, export it as .JSON, decompile it into bicep and see if I could make that work. 
   Although I already did some testing and comparing the JSON, I decided to give it a try once more including the bicep decompile using <code>az bicep decompile</code>.
   And yes, now I came somewhere. In my own test environment I managed to build and deploy the Logic App with a *working* Azure Queue connection. 
   </li>
