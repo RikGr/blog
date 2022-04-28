@@ -64,7 +64,7 @@ connection: {
 
 And there it was! The same error was thrown.
 
-So I finally concluded that the parameter **connection name** must be defined in the resource code itself and as a *string* to make it all work:
+So I finally concluded that the parameter **connection name** must be defined in the instance code itself and as a *string* to make it all work:
 
 ```
       actions: {
