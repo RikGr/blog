@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Use Bicep to create a Logic App with an Azure Queue connector
+title:  Use Bicep to create Logic Apps with an Azure Queue connector
 author: Rik Groenewoud
 tags: microsoft azure bicep iac logicapp azurequeue
 ---
@@ -44,8 +44,7 @@ actions: {
 
 
 ## How it was going
- 
-So how did I troubleshoot: 
+So how did I troubleshoot?
 
 <ul>
   <li><strong>Documentation</strong> In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular Azure Queues connector. I kept on changing the code here and there and tried build after build to no avail. I started to wonder if it was even possible to do this using Bicep. 
@@ -59,8 +58,7 @@ So how did I troubleshoot:
 </ul>
 
 ## How it was fixed
-
-So now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the *working* Bicep to the way I was doing it with a variable for the id: 
+Now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the *working* Bicep to the way I was doing it with a variable for the id: 
 
 ```bicep
 connection: {
@@ -108,7 +106,5 @@ So I finally concluded that the parameter **connection name** must be defined in
 With this change I managed to completely automate the deployment of the Logic App as it was designed. Mission Accomplished.
 
 ## References
-
  <a href="https://docs.microsoft.com/en-us/connectors/azurequeues/"> Microsoft Docs on Logic App Azure Queue Connector</a> 
-
  <a href="https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/"> During troubleshooting I found this nice blog on using Bicep and Logic Apps</a>
