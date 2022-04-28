@@ -2,3 +2,6 @@ theme: jekyll-theme-minimal
 
 github:
   is_project_page: false
+
+  # Google Analytics
+google_analytics: UA-65900970-2
