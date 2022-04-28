@@ -106,5 +106,6 @@ So I finally concluded that the parameter **connection name** must be defined in
 With this change I managed to completely automate the deployment of the Logic App as it was designed. Mission Accomplished.
 
 ## References
- <a href="https://docs.microsoft.com/en-us/connectors/azurequeues/"> Microsoft Docs on Logic App Azure Queue Connector</a> 
- <a href="https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/"> During troubleshooting I found this nice blog on using Bicep and Logic Apps</a>
+- [Microsoft Docs on Logic App Azure Queue Connector](https://docs.microsoft.com/en-us/connectors/azurequeues/)
+- [During troubleshooting I found this nice blog on using Bicep and Logic Apps](https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/>)
+
