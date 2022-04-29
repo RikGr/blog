@@ -63,7 +63,7 @@ So how did I troubleshoot?
 </ul>
 
 ## How it was fixed
-Now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the *working* Bicep to the way I was doing it with a variable for the id: 
+Now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the *working* Bicep to the way I was doing it with the variable for the connection name (which is actually the API Connection id): 
 
 ```bicep
 connection: {
