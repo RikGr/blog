@@ -41,7 +41,7 @@ actions: {
           }
 ```
 
-Notice that for the **connection name** I used a variable azureQueueConnectionId. This variable refers to a parameter <code>azureQueueConnectionIdParameter</code> and this parameter was declared in the main deployment bicep file as follows: 
+Notice that for the **connection name** I used a variable <code>azureQueueConnectionId</code>. This variable refers to a parameter <code>azureQueueConnectionIdParameter</code> and this parameter was declared in the main deployment bicep file as follows: 
 
 ```
 azureQueueConnectionIdParameter: logicAppConnection.outputs.id 
