@@ -17,7 +17,6 @@ The templates and reference for the Logic App and API Connection can be found re
 
 ![Portal](/images/blog-1.2.png)
 
-
 Soon enough I had the Azure resources available and the Logic Apps without the Azure Storage Queue Connector were working just fine. However, the Logic Apps with the *Azure Queues connector* kept on failing. In the Logic App Designer this was the error I saw: 
 
 ![Error](/images/blog-1.1.png)
@@ -42,6 +41,12 @@ actions: {
           }
 ```
 
+Notice that for the **connection name** I used a variable azureQueueConnectionId. This variable refers to a parameter <code>azureQueueConnectionIdParameter</code> and this parameter was declared in the main deployment bicep file as follows: 
+
+```
+azureQueueConnectionIdParameter: logicAppConnection.outputs.id 
+```
+This way of referring to other resources and using output from the Logic App is normal practice so I thought this was the best way to do it.
 
 ## How it was going
 So how did I troubleshoot?
@@ -49,7 +54,7 @@ So how did I troubleshoot?
 <ul>
   <li><strong>Documentation</strong> In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular Azure Queues connector. I kept on changing the code here and there and tried build after build to no avail. I started to wonder if it was even possible to do this using Bicep. 
   </li>
-  <li><strong>Github and StackOverflow</strong> I consulted the community and although finding some good help and informational blogs (see References below) I still could not make it work.
+  <li><strong>Github and StackOverflow</strong> I consulted the community through [Bicep Github](https://github.com/Azure/bicep) and asked around on StackOverflow. Although finding some good help and informational blogs (see References below) I still could not make it work.
   </li>
   <li><strong>Asking my colleagues</strong> I posted the question on our internal Azure Slack channel and sure enough after an initial silence some of my colleagues came to the rescue. They suggested to build the solution via the portal, export it as .JSON, decompile it into Bicep and see if I could make that work. 
   Although I already did some testing and comparing the JSON, I decided to give it a try once more including the decompile option using <code>az bicep decompile</code>.
@@ -68,7 +73,8 @@ connection: {
 
 And there it was! The same error was thrown.
 
-So I finally concluded that the parameter **connection name** must be defined in the instance code itself and as a *string* to make it all work:
+So now I knew I was looking in the right direction. I decided to replace the variable I was using with the syntax from the working example.  
+The parameter **$connections**  now is declared in the instance code itself and the **connention name** refers to this param as a *string*:
 
 ```
       actions: {
@@ -102,8 +108,7 @@ So I finally concluded that the parameter **connection name** must be defined in
     }
 
 ```
-
-With this change I managed to completely automate the deployment of the Logic App as it was designed. Mission Accomplished.
+Although to me it is not entirely clear why, everything worked as expected with the above syntax. For now I am happy with the result. In the future I would like to investigate further to so if I can keep this parameter in the main deployment file to keep the bicep clean and readable. 
 
 ## References
 - [Microsoft Docs on Logic App Azure Queue Connector](https://docs.microsoft.com/en-us/connectors/azurequeues/)
