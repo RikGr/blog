@@ -8,16 +8,14 @@ tags: microsoft azure bicep iac logicapp azurequeue
 
 ## How it started 
 On April 1st, I started my new job at [Xpirit](https://www.xpirit.com) as an Azure & DevOps Consultant. As part of the Managed Services team I will focus on implementing and monitoring Azure infrastructure. 
-During my second week my teammates said: "Create the Infrastructure as Code (IaC) for the Logic Apps". "It is going to be fun", they said...
+During my second week my teammates said: "Create the Infrastructure as Code (IaC) for the Logic Apps". It will be fun they said...
 And yes, fun it was, especially when I finally made it work! 
 
-It all started pretty easy, some of the Bicep fot the Logic App was already there so I did not have to start from scratch. Although I never used Logic Apps before and certainly did not create them by code, I was pretty confident I could make this work.
-
-The templates and reference for the Logic App and API Connection can be found respectively [here](https://docs.microsoft.com/en-us/azure/templates/microsoft.logic/workflows?tabs=bicep) and [here](https://docs.microsoft.com/en-us/azure/templates/microsoft.web/connections?tabs=bicep). But in this current scenario where we had to migrate existing infrastructure to Bicep I always suggest to export the existing resource via the portal to have a blueprint of how the code should look like. This can be done via the Azure Portal under the Automation options:
+It all started pretty easy, some of the Bicep fot the Logic App was already in place so I did not have to start from scratch. The templates and reference for the Logic App and API Connection can be found respectively [here](https://docs.microsoft.com/en-us/azure/templates/microsoft.logic/workflows?tabs=bicep) and [here](https://docs.microsoft.com/en-us/azure/templates/microsoft.web/connections?tabs=bicep). But in this current scenario where we had to *migrate existing* infrastructure to Bicep I always suggest to export the existing resource via the portal to have a blueprint of how the code should look like. This can be done via the Azure Portal under the Automation options:
 
 ![Portal](/images/blog-1.2.png)
 
-Soon enough I had the Azure resources available and the Logic Apps without the Azure Storage Queue Connector were working just fine. However, the Logic Apps with the *Azure Queues connector* kept on failing. In the Logic App Designer this was the error I saw: 
+Soon enough I had the Azure resources available and the Logic App *without the Azure Storage Queue Connector* were working just fine. However, the Logic Apps with the Azure Queues connector in their design kept on failing. In the Logic App Designer in the Azure Portal this was the error I saw: 
 
 ![Error](/images/blog-1.1.png)
 
@@ -41,14 +39,13 @@ actions: {
           }
 ```
 
-Notice that for the **connection name** I used a variable <code>azureQueueConnectionId</code>. This variable refers to a parameter <code>azureQueueConnectionIdParameter</code> and this parameter was declared in the main deployment bicep file as follows: 
-
+Notice that for **connection name** I used a variable <code>azureQueueConnectionId</code>. This variable refers to a parameter <code>azureQueueConnectionIdParameter</code> and this parameter was declared in the main deployment bicep file as follows: 
 ```
 azureQueueConnectionIdParameter: logicAppConnection.outputs.id 
 ```
-This way of referring to other resources and using output from the Logic App is normal practice so I thought this was the best way to do it.
+This way of referring to external resources and using output from the Logic App is normal practice within Bicep so I thought this was the best way to do it.
 
-## How it was going
+## Troubleshoot time
 So how did I troubleshoot?
 
 <ul>
@@ -63,7 +60,7 @@ So how did I troubleshoot?
 </ul>
 
 ## How it was fixed
-Now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the *working* Bicep to the way I was doing it with the variable for the connection name (which is actually the API Connection id): 
+Now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the *working* Bicep to the variable for the connection name (which is actually the API Connection id): 
 
 ```bicep
 connection: {
@@ -71,9 +68,9 @@ connection: {
               }
 ```
 
-And there it was! The same error was thrown.
+And there it was! Now the same error was thrown.
 
-So now I knew I was looking in the right direction. I decided to replace the variable I was using with the syntax from the working example.  
+So after this test, I knew I was looking in the right direction. I decided to replace the variable I was using with the syntax from the working example.  
 The parameter **$connections**  now is declared in the instance code itself and the **connention name** refers to this param as a *string*:
 
 ```
@@ -110,7 +107,7 @@ The parameter **$connections**  now is declared in the instance code itself and 
 ```
 Although to me it is not entirely clear why, everything worked as expected with the above syntax. For now I am happy with the result. In the future I would like to investigate further to so if I can keep this parameter in the main deployment file to keep the bicep clean and readable. 
 
-## References
+## Other References
 - [Microsoft Docs on Logic App Azure Queue Connector](https://docs.microsoft.com/en-us/connectors/azurequeues/)
 - [During troubleshooting I found this nice blog on using Bicep and Logic Apps](https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/>)
 
