@@ -71,7 +71,7 @@ connection: {
 And there it was! Now the same error was thrown.
 
 So after this test, I knew I was looking in the right direction. I decided to replace the variable I was using with the syntax from the working example.  
-The parameter **$connections**  now is declared in the instance code itself and the **connention name** refers to this param as a *string*:
+The parameter **$connections**  now is declared in the resource itself and the **connention name** refers to this param as a *string*:
 
 ```
       actions: {
@@ -105,7 +105,7 @@ The parameter **$connections**  now is declared in the instance code itself and 
     }
 
 ```
-Although to me it is not entirely clear why, everything worked as expected with the above syntax. For now I am happy with the result. In the future I would like to investigate further to so if I can keep this parameter in the main deployment file to keep the bicep clean and readable. 
+Although to me it is not entirely clear why, everything worked as expected with the above syntax. For now I am happy with the result. In the future I would like to investigate further to see if I can replace this parameter towards the main deployment file to keep the bicep clean and readable. 
 
 ## Other References
 - [Microsoft Docs on Logic App Azure Queue Connector](https://docs.microsoft.com/en-us/connectors/azurequeues/)
