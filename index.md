@@ -16,7 +16,7 @@
   {% endfor %}
 </ul>
 
-## Contact 
+## Find me here 
 - [LinkedIn](https://www.linkedin.com/in/rikgroenewoud/)
 - [Github](https://github.com/RikGr)
 - [Xpirit](https://xpirit.com/team/rik-groenewoud/)
