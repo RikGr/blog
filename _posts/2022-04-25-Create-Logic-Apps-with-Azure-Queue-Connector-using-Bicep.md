@@ -51,7 +51,7 @@ So how did I troubleshoot?
 <ul>
   <li><strong>Documentation</strong> In the Microsoft documentation I read that with Access Key authentication it should be possible to make this work. So the theory was there. Unfortunately I could not find any code examples or references to this particular Azure Queues connector. I kept on changing the code here and there and tried build after build to no avail. I started to wonder if it was even possible to do this using Bicep. 
   </li>
-  <li><strong>Github and StackOverflow</strong> I consulted the community through [Bicep Github](https://github.com/Azure/bicep) and asked around on StackOverflow. Although finding some good help and informational blogs (see References below) I still could not make it work.
+  <li><strong>Github and StackOverflow</strong> I consulted the community through <a href="https://github.com/Azure/bicep">Bicep Github</a> and asked around on StackOverflow. Although finding some good help and informational blogs (see References below) I still could not make it work.
   </li>
   <li><strong>Asking my colleagues</strong> I posted the question on our internal Azure Slack channel and sure enough after an initial silence some of my colleagues came to the rescue. They suggested to build the solution via the portal, export it as .JSON, decompile it into Bicep and see if I could make that work. 
   Although I already did some testing and comparing the JSON, I decided to give it a try once more including the decompile option using <code>az bicep decompile</code>.
