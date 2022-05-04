@@ -15,7 +15,7 @@ It all started pretty easy, some of the Bicep fot the Logic App was already in p
 
 ![Portal](/images/blog-1.2.png)
 
-Soon enough I had the Azure resources available and the Logic App *without the Azure Storage Queue Connector* were working just fine. However, the Logic Apps with the Azure Queues connector in their design kept on failing. In the Logic App Designer in the Azure Portal this was the error I saw: 
+Soon enough I had the Azure resources available and the Logic App *without the Azure Storage Queue Connector* was working just fine. However, the Logic Apps with the Azure Queues connector in their design kept on failing. In the Logic App Designer this was the error I saw: 
 
 ![Error](/images/blog-1.1.png)
 
