@@ -1,9 +1,25 @@
+<head>
+<script src="https://giscus.app/client.js"
+        data-repo="RikGr/cloudwoud"
+        data-repo-id="R_kgDOHLlC9w"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOHLlC984CO_2O"
+        data-mapping="pathname"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+</head>
+
 ---
 layout: post
 title:  Use Bicep to create Logic Apps with an Azure Queue connector
 author: Rik Groenewoud
 tags: microsoft azure bicep iac logicapp azurequeue
-comments: true
 ---
 
 
@@ -110,3 +126,4 @@ Although to me it is not entirely clear what is the technical explanation behind
 ## Other References
 - [Microsoft Docs on Logic App Azure Queue Connector](https://docs.microsoft.com/en-us/connectors/azurequeues/)
 - [During troubleshooting I found this nice blog about using Bicep and Logic Apps](https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/>)
+
