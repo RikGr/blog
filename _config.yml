@@ -8,8 +8,15 @@ google_analytics: UA-65900970-2
 
 logo: assets/logo.png
 
-comments:
-  provider: "utterances"
-  utterances:
-    theme: "github-light" # "github-dark"
-    issue_term: "pathname"
+comments: 
+  provider: gisqus
+
+giscus:
+  repo:                "RikGr/cloudwoud"
+  repo-id:             "R_kgDOHLlC9w"
+  category:            "Announcements"
+  category-id:         "DIC_kwDOHLlC984CO_2O"
+  mapping:             "pathname"
+  reaction-enabled:    "1"
+  theme:               "light"
+  crossorigin:         "anonymous"
