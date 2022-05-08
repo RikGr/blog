@@ -1,12 +1,9 @@
-
 ---
 layout: post
 title:  Use Bicep to create Logic Apps with an Azure Queue connector
 author: Rik Groenewoud
 tags: microsoft azure bicep iac logicapp azurequeue
 ---
-
-
 ## How it started 
 On April 1st, I started my new job at [Xpirit](https://www.xpirit.com) as an Azure & DevOps Consultant. As part of the Managed Services team I will focus on implementing and monitoring Azure infrastructure. 
 During my second week my teammates said: "Create the Infrastructure as Code (IaC) for the Logic Apps". It will be fun they said...
