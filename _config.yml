@@ -7,3 +7,9 @@ github:
 google_analytics: UA-65900970-2
 
 logo: assets/logo.png
+
+comments:
+  provider: "utterances"
+  utterances:
+    theme: "github-light" # "github-dark"
+    issue_term: "pathname"

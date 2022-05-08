@@ -108,5 +108,4 @@ The parameter **$connections**  now is declared in the resource itself and the *
 Although to me it is not entirely clear what is the technical explanation behind it, everything worked with the above syntax :). For now I am happy with the result. An idea for improvement is to see if this <code>connection name</code> parameter can be set in the main deployment file after all and by doing this make the Bicep more readable and clean.
 ## Other References
 - [Microsoft Docs on Logic App Azure Queue Connector](https://docs.microsoft.com/en-us/connectors/azurequeues/)
-- [During troubleshooting I found this nice blog on using Bicep and Logic Apps](https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/>)
-
+- [During troubleshooting I found this nice blog about using Bicep and Logic Apps](https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/>)
