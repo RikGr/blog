@@ -2,6 +2,20 @@
 {% if site.google_analytics and jekyll.environment == 'production' %}
 {% include analytics.html %}
 {% endif %}
+<script src="https://giscus.app/client.js"
+        data-repo="RikGr/cloudwoud"
+        data-repo-id="R_kgDOHLlC9w"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOHLlC984CO_2O"
+        data-mapping="pathname"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
 </head>
 
 
