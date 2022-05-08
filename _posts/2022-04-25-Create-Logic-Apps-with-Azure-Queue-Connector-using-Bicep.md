@@ -110,6 +110,7 @@ Although to me it is not entirely clear what is the technical explanation behind
 - [Microsoft Docs on Logic App Azure Queue Connector](https://docs.microsoft.com/en-us/connectors/azurequeues/)
 - [During troubleshooting I found this nice blog about using Bicep and Logic Apps](https://checinski.cloud/azure-logic-app-blob-storage-connection-bicep/>)
 
+<html>
  <script src="https://giscus.app/client.js"
             data-repo={{ giscus.repo }}
             data-repo-id={{ giscus.repo-id }}
@@ -120,4 +121,5 @@ Although to me it is not entirely clear what is the technical explanation behind
             data-theme={{ giscus.theme }}
             crossorigin={{ giscus.crossorigin }}
             async>
-    </script>
+  </script>
+</html>
