@@ -8,7 +8,7 @@ tags: microsoft azure bicep iac logicapp azurequeue
 On April 1st, I started my new job at [Xpirit](https://www.xpirit.com) as an Azure & DevOps Consultant. As part of the Managed Services team I will focus on implementing and monitoring Azure infrastructure. 
 During my second week my teammates said: "Create the Infrastructure as Code (IaC) for the Logic Apps". It will be fun they said...
 And yes, fun it was, especially when I finally made it work! 
-
+s
 It all started pretty easy, some of the Bicep fot the Logic App was already in place so I did not have to start from scratch. The templates and reference for the Logic App and API Connection can be found respectively [here](https://docs.microsoft.com/en-us/azure/templates/microsoft.logic/workflows?tabs=bicep) and [here](https://docs.microsoft.com/en-us/azure/templates/microsoft.web/connections?tabs=bicep). But in this current scenario where we had to *migrate existing* infrastructure to Bicep I always suggest to export the existing resource via the portal to have a blueprint of how the code should look like. This can be done via the Azure Portal under the Automation options:
 
 ![Portal](/images/blog-1.2.png)
@@ -60,7 +60,7 @@ So how did I troubleshoot?
 ## How it was fixed
 Now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the *working* Bicep to the variable for the connection name (which is actually the API Connection id): 
 
-```bicep
+```
 connection: {
                 name: azureQueueConnectionId
               }
@@ -72,36 +72,33 @@ So after this test, I knew I was looking in the right direction. I decided to re
 The parameter **$connections**  now is declared in the resource itself and the **connention name** refers to this param as a *string*:
 
 ```
-      actions: {
-        'Put_a_message_on_a_queue_(V2)' : {
-          runafter: {}
-          type: 'ApiConnection'
-          inputs: {
-            body: 'start'
-            host: {
-              connection: {
-                name: '@parameters(\'$connections\')[\'azurequeues\'][\'connectionId\']'
-              }
-            }
-              method: 'post'
-              path: '/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages'
-            
-          }
+    actions: {
+    'Put_a_message_on_a_queue_(V2)' : {
+    runafter: {}
+    type: 'ApiConnection'
+    inputs: {
+      body: 'start'
+      host: {
+        connection: {
+          name: '@parameters(\'$connections\')[\'azurequeues\'][\'connectionId\']'
         }
       }
-    }
-    parameters: {
-      '$connections': {
-        value: {
-          azurequeues: {
-            connectionId: logicAppConnection.id
-            connectionName: 'LogicAppConnection'
-            id: '/subscriptions/xxxxxxxxxxx/providers/Microsoft.Web/locations/westeurope/managedApis/azurequeues'
-          }
-        }
+        method: 'post'
+        path: '/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages'
       }
     }
-
+  }
+  parameters: {
+  '$connections': {
+    value: {
+      azurequeues: {
+        connectionId: logicAppConnection.id
+        connectionName: 'LogicAppConnection'
+        id: '/subscriptions/xxxxxxxxxxx/providers/Microsoft.Web/locations/westeurope/managedApis/azurequeues'
+      }
+    }
+  }
+}
 ```
 Although to me it is not entirely clear what is the technical explanation behind it, everything worked with the above syntax :). For now I am happy with the result. An idea for improvement is to see if this <code>connection name</code> parameter can be set in the main deployment file after all and by doing this make the Bicep more readable and clean.
 ## Other References
