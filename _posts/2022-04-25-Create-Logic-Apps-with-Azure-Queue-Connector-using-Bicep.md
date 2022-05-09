@@ -19,7 +19,7 @@ Soon enough I had the Azure resources available and the Logic App *without the A
 
 A snippet from the Bicep I had for the Logic App in question: 
 
-```bicep
+```Bicep
 actions: {
         'Put_a_message_on_a_queue_(V2)' : {
           runafter: {}
@@ -38,7 +38,7 @@ actions: {
 ```
 
 Notice that for **connection name** I used a variable <code>azureQueueConnectionId</code>. This variable refers to a parameter <code>azureQueueConnectionIdParameter</code> and this parameter was declared in the main deployment bicep file as follows: 
-```
+```Bicep
 azureQueueConnectionIdParameter: logicAppConnection.outputs.id 
 ```
 This way of referring to external resources and using output from the Logic App is normal practice within Bicep so I thought this was the best way to do it.
@@ -60,7 +60,7 @@ So how did I troubleshoot?
 ## How it was fixed
 Now I knew it could work. What remained was an exercise in comparing the two templates. And yes, after some initial trial and error it dawned on me that it must be something in the definition of the API Connection in the Logic App. So I changed some of the *working* Bicep to the variable for the connection name (which is actually the API Connection id): 
 
-```
+```Bicep
 connection: {
                 name: azureQueueConnectionId
               }
@@ -71,7 +71,7 @@ And there it was! Now the same error was thrown.
 So after this test, I knew I was looking in the right direction. I decided to replace the variable I was using with the syntax from the working example.  
 The parameter **$connections**  now is declared in the resource itself and the **connention name** refers to this param as a *string*:
 
-```
+```Bicep
     actions: {
     'Put_a_message_on_a_queue_(V2)' : {
     runafter: {}
