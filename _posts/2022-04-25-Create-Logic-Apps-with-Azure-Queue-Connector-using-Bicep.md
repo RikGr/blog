@@ -72,23 +72,23 @@ So after this test, I knew I was looking in the right direction. I decided to re
 The parameter **$connections**  now is declared in the resource itself and the **connention name** refers to this param as a *string*:
 
 ```Bicep
-    actions: {
-    'Put_a_message_on_a_queue_(V2)' : {
-    runafter: {}
-    type: 'ApiConnection'
-    inputs: {
-      body: 'start'
-      host: {
-        connection: {
-          name: '@parameters(\'$connections\')[\'azurequeues\'][\'connectionId\']'
-        }
-      }
-        method: 'post'
-        path: '/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages'
+actions: {
+  'Put_a_message_on_a_queue_(V2)' : {
+  runafter: {}
+  type: 'ApiConnection'
+  inputs: {
+    body: 'start'
+    host: {
+      connection: {
+        name: '@parameters(\'$connections\')[\'azurequeues\'][\'connectionId\']'
       }
     }
+      method: 'post'
+      path: '/v2/storageAccounts/${storageAccountName}/queues/dailymaintenance/messages'
+    }
   }
-  parameters: {
+}
+parameters: {
   '$connections': {
     value: {
       azurequeues: {
