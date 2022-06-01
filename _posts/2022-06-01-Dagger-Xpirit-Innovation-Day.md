@@ -11,7 +11,7 @@ tags: microsoft azure dagger iac pulumi cicd docker
 
 Bring all Xpirit employees together on a external location and let them work together on innovative subjects of their own choosing. Then at the end of the day we present our findings to each other in 5 minute Lighting Talks. This is the concept of the Xpirit Innovation Day in a nutshell. Innovation must be understood in the broadest sense of the word. So while most subjects indeed are focused on the newest technologies, others dived into creating new product propositions for our customers, our working culture or creating a new hiring assessment. 
 
-I decided to join a subject with the nice alliterating title: Let's Dig into Dagger. I had read some LinkedIn post on its go live, so I knew a little bit of what it was and was curious to see how it worked and performed. Together with my colleague Chris van Sluijsveld we were a team of two and we started of the day with high hopes. Another team wanted to look into [Pulumi](https://www.pulumi.com/); a promising Infrastructure as Code (IaC) platform. We decided to connect our two subjects. To goal we set ourselves was to be able to deploy the Pulumi infrastructure with our Dagger CD pipeline.
+I decided to join a subject with the nice alliterating title: Let's Dig into Dagger. I had read some LinkedIn post on its go live, so I knew a little bit of what it was and was curious to see how it worked and performed. Together with my colleague Chris van Sluijsveld we were a team of two and we started of the day with high hopes. Another team wanted to look into [Pulumi](https://www.pulumi.com/); a promising Infrastructure as Code (IaC) platform. We decided to connect our two subjects. <strong>To goal we set ourselves was to be able to deploy the Pulumi infrastructure with our Dagger CD pipeline.</strong>
 
 ## What is dagger?
 
@@ -21,7 +21,7 @@ For more information see the above mentioned website and their [docs](https://do
 
 Just to be clear: The Dagger we talk about here is not the same as [Google Dagger](https://github.com/google/dagger\), the dependency injector.
 
-## Dagger and Azure 
+## Could we made it work?
 
 As we started our day and installed Dagger on our machines, it became clear quite early that there was no out-of-the-box support for Microsoft Azure as of yet. There is no documentation or code examples for Azure as of yet. Dagger works with a *Plan*  and in this plan you can define *Actions*. These actions are the building blocks of your pipeline. You can write and define your own Actions but coviently enough there are a lot of Actions out there you can import and use in your Dagger Plan (such as actions for Build and Run stuff). 
 
@@ -30,11 +30,11 @@ We decided to start with a try to install the Azure CLI on the container. After 
 We integrated Dagger into our Github environment we our repo was located as well. With the GitHub action template provided in the [Dagger documentation](https://docs.dagger.io/1201/ci-environment) we had the GitHub action up and running in no time. 
 It turned out our biggest challenge was to find out how the secrets in GitHub, which we used for authentication with Azure, could be imported into the dagger script and furthermore be used in the bash script action we used to execute the Pulumi commands. Eventually we figured it out the correct syntax. Just when the first Lighting talk started at 3PM sharp, we managed to do a complete run of our pipeline and build the Pulumi Infrastructure into Azure!
 
-## The Dagger CD pipeline 
+## The pipeline 
 
 Let's see how this pipeline looked like: 
 
-```CUE
+```
 package pulumi
 
 import (
