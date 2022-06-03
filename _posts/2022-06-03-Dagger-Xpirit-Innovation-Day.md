@@ -179,3 +179,18 @@ I would say that Dagger definitely has potential and time will tell if it will g
 
 At the end of the day there was a big surprise left. The theme of the day was *"Chef et les Ops"* and as it turned out they saved the best for last. Three colleagues with a big love for cooking had been busy all day in a professional kitchen to take their cooking skills to the next level. We were served no less than 9 (!) courses all very delicious and accompanied by the best carefully selected wines. The quality was what you can expect from Xpirit: without compromise; simply the best you can get! If you are interested on the how and why of this marvelous dinner see [this article](https://www.linkedin.com/pulse/taste-innovation-xpirit-bv/?trackingId=EBDJkuNnTVq27VxunTEjhA%3D%3D).
 
+
+<script src="https://giscus.app/client.js"
+        data-repo="RikGr/cloudwoud"
+        data-repo-id="R_kgDOHLlC9w"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOHLlC984CO_2O"
+        data-mapping="pathname"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
