@@ -162,15 +162,15 @@ I am sure there are more pros and cons for this tool but for me the biggest pros
 ### Pros
 
 <ul>
- <l> Test locally. This means a very fast feedback loop and with that speed up the development of the pipeline.
- <l> You can integrate Dagger with any other CI tool you already use. 
+ <l> Test locally. This means a very fast feedback loop and with that speed up the development of the pipeline.</li>
+ <l> You can integrate Dagger with any other CI tool you already use. </li>
 </ul>
 
 ### Cons
 
 <ul>
- <l> Since I am not familiar with CUE this means yet another scripting language I have to get into before I can easily work with Dagger.
- <l> Not much documentation and support for Dagger in general and for Microsoft especially. Of course this can change in the future, but for now, Dagger does not seem mature enough to switch over from well-known CI/CD solutions we already have in place.
+ <l> Since I am not familiar with CUE this means yet another scripting language I have to get into before I can easily work with Dagger. </li>
+ <l> Not much documentation and support for Dagger in general and for Microsoft especially. Of course this can change in the future, but for now, Dagger does not seem mature enough to switch over from well-known CI/CD solutions we already have in place. </li>
 </ul>
 
 ## Conclusion
