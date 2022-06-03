@@ -9,9 +9,9 @@ tags: microsoft azure dagger iac pulumi cicd docker
 
 ![InnoDay](/images/blog-2.1.jpg)
 
-Bring all Xpirit employees together on a external location and let them work together on innovative subjects of their own choosing. Then at the end of the day we present our findings to each other in 5 minute Lighting Talks. This is the concept of the Xpirit Innovation Day in a nutshell. Innovation must be understood in the broadest sense of the word. So while most subjects indeed are focused on the newest technologies, others dived into creating new product propositions for our customers, our working culture or creating a new hiring assessment. 
+Bring all Xpirit employees together on a external location and let them work on innovative subjects of their own choosing. Then at the end of the day present the findings to each other in 5 minute lighting talks. This is the concept of the Xpirit Innovation Day in a nutshell. Innovation must be understood in the broadest sense of the word. So while most subjects indeed are focused on the newest technologies, others dive into creating new product propositions for our customers, our working culture or creating a new hiring assessment to name just a few examples. 
 
-I decided to join a subject with the nice alliterating title: Let's Dig into Dagger. I had read some LinkedIn post on its go live, so I knew a little bit of what it was and was curious to see how it worked and performed. Together with my colleague Chris van Sluijsveld we were a team of two and we started of the day with high hopes. Another team wanted to look into [Pulumi](https://www.pulumi.com/); a promising Infrastructure as Code (IaC) platform. We decided to connect our two subjects. <strong>To goal we set ourselves was to be able to deploy the Pulumi infrastructure with our Dagger CD pipeline.</strong>
+I decided to join a topic with the nice alliterating title: Let's Dig into Dagger. I had read some LinkedIn post when Dagger went live, so I knew a little bit of what it was and was curious to see how it worked and performed. Together with my colleague Chris van Sluijsveld we were a team of two. Another team wanted to look into [Pulumi](https://www.pulumi.com/); a promising Infrastructure as Code (IaC) platform. We decided to connect our two subjects. <strong>To goal we set was that we want to be able to deploy the Pulumi infrastructure with our Dagger CD pipeline at the end of the day.</strong>
 
 ## What is dagger?
 
@@ -23,18 +23,19 @@ Just to be clear: The Dagger we talk about here is not the same as [Google Dagge
 
 ## Could we made it work?
 
-As we started our day and installed Dagger on our machines, it became clear quite early that there was no out-of-the-box support for Microsoft Azure as of yet. There is no documentation or code examples for Azure as of yet. Dagger works with a *Plan*  and in this plan you can define *Actions*. These actions are the building blocks of your pipeline. You can write and define your own Actions but coviently enough there are a lot of Actions out there you can import and use in your Dagger Plan (such as actions for Build and Run stuff). 
+As we started our day and installed Dagger on our machines, it became clear quite early that there was no out-of-the-box support for Microsoft Azure as of yet. We found no documentation or code examples for deploying Azure infra or an integration with Pipelines. This meant we had to build up the pipeline from scratch. 
+So what are the building blocks we can work with? It all starts with a *Plan* and in this plan you can define *Actions* in which you define what you actually want to do. You can write and define your own Actions but luckily there are a lot of Actions out there you can import and use in your Dagger Plan (such as actions for Build and Run stuff). 
 
-We decided to start with a try to install the Azure CLI on the container. After the first few hours of trial and error, Googling and local testing we managed to do this. After lunch we decided to use a different container image. We were using the standard Alpine Linux image which is very fast and lightweight but has almost nothing pre-installed. We actually found an image especially configured for Pulumi so this would help us a great deal in our mission to deploy the Pulumi IaC to Azure. 
+We decided to start with installing the Azure CLI on the container. After the first few hours of trial and error, Googling and local testing we managed to do this. After lunch we decided to use a different container image. We started with the standard Alpine Linux image which is very fast and lightweight but has almost nothing pre-installed. We actually found an Docker image that had Pulumi already installed so this gave us a head start and less manually installs before the actual deployment could start. 
 
-We integrated Dagger into our Github environment we our repo was located as well. With the GitHub action template provided in the [Dagger documentation](https://docs.dagger.io/1201/ci-environment) we had the GitHub action up and running in no time. 
-It turned out our biggest challenge was to find out how the secrets in GitHub, which we used for authentication with Azure, could be imported into the dagger script and furthermore be used in the bash script action we used to execute the Pulumi commands. Eventually we figured it out the correct syntax. Just when the first Lighting talk started at 3PM sharp, we managed to do a complete run of our pipeline and build the Pulumi Infrastructure into Azure!
+We integrated Dagger into our Github environment were our repo was located as well. With the GitHub Action template provided in the [documentation](https://docs.dagger.io/1201/ci-environment) we had the Action up and running in no time. 
+It turned out our biggest challenge was to find out how the secrets in GitHub, which we used for authentication with Azure, could be imported into the dagger script and then be used in the bash script Action we used to execute the Pulumi commands. Eventually we figured out the correct syntax. Just when the first Lighting talk started at 3PM sharp, we managed to do a complete run of our pipeline and build the Pulumi Infrastructure into Azure!
 
 ## The pipeline 
 
 Let's see how this pipeline looked like: 
 
-```
+```CUE
 package pulumi
 
 import (
@@ -126,7 +127,7 @@ deps: docker.#Build & {
 In the first part of the script we established the environment. With the <code>docker.#Pull</code> action we pulled the pulumi docker container that would run the rest of the pipeline. With the <code>docker.#Copy</code> we import the pulumi files into the local environment. Lastly, with the <code>bash.#Run</code> action we installed Azure CLI on the container. This makes it possible to talk to Azure.
 
 ### Action 2: The Pulumi deployment
-
+```CUE
 deployment: bash.#Run & {
 input:   deps.output
 workdir: "/src"
@@ -145,31 +146,32 @@ script: contents: #"""
 	pulumi up --yes
 	"""#
 }
+```
 
 In the second pat we run the actual deployment of the Pulumi IaC. As said we had some struggles to figure out the correct syntax for the environment variables. In the script itself we refer to the variables with $1 for the first in the args array, $2 for the second etc. etc. 
 
 ## Pro's and Cons 
 
-There are a lot of reasons why you should or not should choose for this solution but for me the biggest Pros and Cons are:
+I am sure there are more pros and cons for this tool but for me the biggest Pros and Cons are:
 
 ### Pros
 
 <ul>
  <l> You can integrate Dagger with any other CI tool you already use. 
  <l> Test locally. This means very fast feedback loop and development of the pipeline
-</u>
+</ul>
 
 ### Cons
 
 <ul>
  <l> Since I am not familiar with CUE this means yet another scripting language I have to get into before I can easily work with Dagger 
  <l> Not much documentation and support for Dagger in general and for Microsoft Azure in combination with Dagger there is especially little to find online. Of course this can change in the future but for now Dagger does not seem mature enough to switch over from our well-known CI/CD solutions we already have in place.
- </u>
+ </ul>
 
 ## Conclusion
 
-For me this day was a great success. Working together with colleagues I did not work with before and explore a new and for me unknown technology. We started the day blank and really had to figure out how we could make this work.  As the hours progressed we got more familiar with the CUE syntax and all that Dagger had to offer. 
-I would say that it definitely has potential and time will tell if Dagger will get traction and further support from the community. For me, today it is just too early to use this in a customer project, especially when you want to use this with Microsoft Azure and i.e. Azure DevOps Pipelines.
+For me this day was a great success. Working together with colleagues I did not work with before and explore a new and unknown technology. I want to thank [Chris van Sluijsveld](https://xpirit.com/team/chris-van-sluijsveld/) for taking the lead on this exploration. We started the day blank and really had to figure out how we could make this work. As the hours progressed we got more familiar with the CUE syntax and all that Dagger had to offer. 
+I would say that Dagger definitely has potential and time will tell if it will get traction and further support from the community. I would say that today it is just too early to use this in a customer production setting, especially when you want to use this with Microsoft Azure and i.e. Azure DevOps Pipelines.
 
-At the end of the day there was a big surprise left. The theme of the day was "Chef et les Ops" and it turned out the best was saved for last. Three colleagues with a big love for cooking had been busy all day in a professional kitchen to take their innovative cooking skills to the next level. We were served no less than 9 (!) courses all very delicious and accompanied by the best carefully selected wines. The quality was what you can expect from Xpirit: without compromise simply the best you can get! If you are interested see [this article](https://www.linkedin.com/pulse/taste-innovation-xpirit-bv/?trackingId=EBDJkuNnTVq27VxunTEjhA%3D%3D) for more on the how and why of this marvelous dinner.
+At the end of the day there was a big surprise left. The theme of the day was *"Chef et les Ops"* and as it turned out they saved the best for last. Three colleagues with a big love for cooking had been busy all day in a professional kitchen to take their cooking skills to the next level. We were served no less than 9 (!) courses all very delicious and accompanied by the best carefully selected wines. The quality was what you can expect from Xpirit: without compromise; simply the best you can get! If you are interested on the how and why of this marvelous dinner see [this article](https://www.linkedin.com/pulse/taste-innovation-xpirit-bv/?trackingId=EBDJkuNnTVq27VxunTEjhA%3D%3D).
 
