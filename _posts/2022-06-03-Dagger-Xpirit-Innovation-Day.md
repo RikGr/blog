@@ -12,7 +12,7 @@ I decided to join a topic with the nice alliterating title: Let's Dig into Dagge
 
 ## What is dagger?
 
-Let's start with a little background information of the tool itself. As stated [on their website](https://dagger.io) with Dagger you can build powerful CI/CD pipelines quickly, then run them anywhere. Written in [CUE](https://cuelang.org/), these pipelines run in a Docker container which means they can run on any platform that supports Docker. This includes running the pipeline *locally*, a great benefit when you are building and setting up a pipeline and what to get quick feedback and results.
+Let's start with a little background information of the tool itself. As stated on their [website](https://dagger.io) with Dagger you can build powerful CI/CD pipelines quickly, then run them anywhere. Written in [CUE](https://cuelang.org/), these pipelines run in a Docker container which means they can run on any platform that supports Docker. This includes running the pipeline *locally*, a great benefit when you are building and setting up a pipeline and what to get quick feedback and results.
 For more information see the above mentioned website and their [docs](https://docs.dagger.io/) page. We also used the [github repo](https://github.com/dagger) for examples and extra details.
 
 Just to be clear: the Dagger we talk about here is not the same as [Google Dagger](https://github.com/google/dagger\), the dependency injector.
