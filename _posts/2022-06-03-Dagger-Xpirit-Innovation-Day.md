@@ -4,9 +4,6 @@ title: Dig into Dagger. A recap on my first Xpirit Innovation Day
 author: Rik Groenewoud
 tags: microsoft azure dagger iac pulumi cicd docker
 ---
-
-## Xpirit Innovation Day 
-
 ![InnoDay](/images/blog-2.1.jpg)
 
 Bring all Xpirit employees together on a external location and let them work on innovative subjects of their own choosing. Then at the end of the day present the findings to each other in 5 minute lighting talks. This is the concept of the Xpirit Innovation Day in a nutshell. Innovation must be understood in the broadest sense of the word. So while most subjects indeed are focused on the newest technologies, others dive into creating new product propositions for our customers, our working culture or creating a new hiring assessment to name just a few examples. 
