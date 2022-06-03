@@ -162,7 +162,7 @@ I am sure there are more pros and cons for this tool but for me the biggest pros
 ### Pros
 <ul>
  <li> Test locally. This means a very fast feedback loop and with that speed up the development of the pipeline.</li>
- <l> You can integrate Dagger with any other CI tool you already use. </li>
+ <li> You can integrate Dagger with any other CI tool you already use. </li>
 </ul>
 
 ### Cons
