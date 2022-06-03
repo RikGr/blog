@@ -16,12 +16,11 @@ I decided to join a topic with the nice alliterating title: Let's Dig into Dagge
 ## What is dagger?
 
 Let's start with a little background information of the tool itself. As stated [on their website](https://dagger.io) with Dagger you can build powerful CI/CD pipelines quickly, then run them anywhere. Written in [CUE](https://cuelang.org/), these pipelines run in a Docker container which means they can run on any platform that supports Docker. This includes running the pipeline *locally*, a great benefit when you are building and setting up a pipeline and what to get quick feedback and results.
-
 For more information see the above mentioned website and their [docs](https://docs.dagger.io/) page. We also used the [github repo](https://github.com/dagger) for examples and extra details.
 
-Just to be clear: The Dagger we talk about here is not the same as [Google Dagger](https://github.com/google/dagger\), the dependency injector.
+Just to be clear: the Dagger we talk about here is not the same as [Google Dagger](https://github.com/google/dagger\), the dependency injector.
 
-## Could we made it work?
+## Can we make it work?
 
 As we started our day and installed Dagger on our machines, it became clear quite early that there was no out-of-the-box support for Microsoft Azure as of yet. We found no documentation or code examples for deploying Azure infra or an integration with Pipelines. This meant we had to build up the pipeline from scratch. 
 So what are the building blocks we can work with? It all starts with a *Plan* and in this plan you can define *Actions* in which you define what you actually want to do. You can write and define your own Actions but luckily there are a lot of Actions out there you can import and use in your Dagger Plan (such as actions for Build and Run stuff). 
@@ -31,11 +30,12 @@ We decided to start with installing the Azure CLI on the container. After the fi
 We integrated Dagger into our Github environment were our repo was located as well. With the GitHub Action template provided in the [documentation](https://docs.dagger.io/1201/ci-environment) we had the Action up and running in no time. 
 It turned out our biggest challenge was to find out how the secrets in GitHub, which we used for authentication with Azure, could be imported into the dagger script and then be used in the bash script Action we used to execute the Pulumi commands. Eventually we figured out the correct syntax. Just when the first Lighting talk started at 3PM sharp, we managed to do a complete run of our pipeline and build the Pulumi Infrastructure into Azure!
 
-## The pipeline 
+## The pipeline
 
-Let's see how this pipeline looked like: 
+Let's see how this pipeline looks like: 
 
-```CUE
+```cue
+
 package pulumi
 
 import (
@@ -100,10 +100,12 @@ dagger.#Plan & {
 		}
 	}
 }
+
 ```
 ### Action 1: The dependencies
 
-```CUE
+```cue
+
 deps: docker.#Build & {
     steps: [
         docker.#Pull & {
@@ -123,11 +125,13 @@ deps: docker.#Build & {
         }
     ]
 }
+
 ```
-In the first part of the script we established the environment. With the <code>docker.#Pull</code> action we pulled the pulumi docker container that would run the rest of the pipeline. With the <code>docker.#Copy</code> we import the pulumi files into the local environment. Lastly, with the <code>bash.#Run</code> action we installed Azure CLI on the container. This makes it possible to talk to Azure.
+In the first part of the script we establish the environment. With the <code>docker.#Pull</code> action we pul the pulumi docker container that will run the rest of the pipeline. With the <code>docker.#Copy</code> we import the pulumi files into the local environment. Lastly, with the <code>bash.#Run</code> action we install the Azure CLI on the container. This makes it possible to talk to Azure.
 
 ### Action 2: The Pulumi deployment
-```CUE
+```cue
+
 deployment: bash.#Run & {
 input:   deps.output
 workdir: "/src"
@@ -146,27 +150,28 @@ script: contents: #"""
 	pulumi up --yes
 	"""#
 }
+
 ```
 
-In the second pat we run the actual deployment of the Pulumi IaC. As said we had some struggles to figure out the correct syntax for the environment variables. In the script itself we refer to the variables with $1 for the first in the args array, $2 for the second etc. etc. 
+In the second part we run the actual deployment of the Pulumi IaC. As said we had some struggles to figure out the correct syntax for the environment variables. In the script itself we refer to the variables with <code>$1</code> for the first in the args array, <code>$2</code> for the second etc. etc. 
 
 ## Pro's and Cons 
 
-I am sure there are more pros and cons for this tool but for me the biggest Pros and Cons are:
+I am sure there are more pros and cons for this tool but for me the biggest pros and cons are:
 
 ### Pros
 
 <ul>
+ <l> Test locally. This means a very fast feedback loop and with that speed up the development of the pipeline.
  <l> You can integrate Dagger with any other CI tool you already use. 
- <l> Test locally. This means very fast feedback loop and development of the pipeline
 </ul>
 
 ### Cons
 
 <ul>
- <l> Since I am not familiar with CUE this means yet another scripting language I have to get into before I can easily work with Dagger 
- <l> Not much documentation and support for Dagger in general and for Microsoft Azure in combination with Dagger there is especially little to find online. Of course this can change in the future but for now Dagger does not seem mature enough to switch over from our well-known CI/CD solutions we already have in place.
- </ul>
+ <l> Since I am not familiar with CUE this means yet another scripting language I have to get into before I can easily work with Dagger.
+ <l> Not much documentation and support for Dagger in general and for Microsoft especially. Of course this can change in the future, but for now, Dagger does not seem mature enough to switch over from well-known CI/CD solutions we already have in place.
+</ul>
 
 ## Conclusion
 
