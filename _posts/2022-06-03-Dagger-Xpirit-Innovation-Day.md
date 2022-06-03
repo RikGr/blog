@@ -34,8 +34,7 @@ It turned out our biggest challenge was to find out how the secrets in GitHub, w
 
 Let's see how this pipeline looks like: 
 
-```cue
-
+```yml
 package pulumi
 
 import (
@@ -100,12 +99,10 @@ dagger.#Plan & {
 		}
 	}
 }
-
 ```
 ### Action 1: The dependencies
 
-```cue
-
+```yml
 deps: docker.#Build & {
     steps: [
         docker.#Pull & {
@@ -125,13 +122,11 @@ deps: docker.#Build & {
         }
     ]
 }
-
 ```
 In the first part of the script we establish the environment. With the <code>docker.#Pull</code> action we pul the pulumi docker container that will run the rest of the pipeline. With the <code>docker.#Copy</code> we import the pulumi files into the local environment. Lastly, with the <code>bash.#Run</code> action we install the Azure CLI on the container. This makes it possible to talk to Azure.
 
 ### Action 2: The Pulumi deployment
-```cue
-
+```yml
 deployment: bash.#Run & {
 input:   deps.output
 workdir: "/src"
@@ -150,7 +145,6 @@ script: contents: #"""
 	pulumi up --yes
 	"""#
 }
-
 ```
 
 In the second part we run the actual deployment of the Pulumi IaC. As said we had some struggles to figure out the correct syntax for the environment variables. In the script itself we refer to the variables with <code>$1</code> for the first in the args array, <code>$2</code> for the second etc. etc. 
