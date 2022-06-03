@@ -32,7 +32,7 @@ It turned out our biggest challenge was to find out how the secrets in GitHub, w
 
 ## The pipeline
 
-Let's see how this pipeline looks like: 
+So we ended up with this code for the complete pipeline:  
 
 ```
 package pulumi
@@ -102,6 +102,8 @@ dagger.#Plan & {
 ```
 ### Action 1: The dependencies
 
+In the first part of the script we establish the environment. With the <code>docker.#Pull</code> action we pul the pulumi docker container that will run the rest of the pipeline. With the <code>docker.#Copy</code> we import the pulumi files into the local environment. Lastly, with the <code>bash.#Run</code> action we install the Azure CLI on the container. This makes it possible to talk to Azure.
+
 ```
 deps: docker.#Build & {
     steps: [
@@ -123,10 +125,12 @@ deps: docker.#Build & {
     ]
 }
 ```
-In the first part of the script we establish the environment. With the <code>docker.#Pull</code> action we pul the pulumi docker container that will run the rest of the pipeline. With the <code>docker.#Copy</code> we import the pulumi files into the local environment. Lastly, with the <code>bash.#Run</code> action we install the Azure CLI on the container. This makes it possible to talk to Azure.
+
 
 ### Action 2: The Pulumi deployment
-```yml
+In the second part we run the actual deployment of the Pulumi IaC. As said we had some struggles to figure out the correct syntax for the environment variables. In the script itself we refer to the variables with <code>$1</code> for the first in the args array, <code>$2</code> for the second etc. etc. 
+
+```
 deployment: bash.#Run & {
 input:   deps.output
 workdir: "/src"
@@ -146,9 +150,6 @@ script: contents: #"""
 	"""#
 }
 ```
-
-In the second part we run the actual deployment of the Pulumi IaC. As said we had some struggles to figure out the correct syntax for the environment variables. In the script itself we refer to the variables with <code>$1</code> for the first in the args array, <code>$2</code> for the second etc. etc. 
-
 ## Pro's and Cons 
 
 I am sure there are more pros and cons for this tool but for me the biggest pros and cons are:
