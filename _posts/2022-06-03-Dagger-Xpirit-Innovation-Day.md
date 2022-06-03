@@ -34,7 +34,7 @@ It turned out our biggest challenge was to find out how the secrets in GitHub, w
 
 Let's see how this pipeline looks like: 
 
-```yml
+```
 package pulumi
 
 import (
@@ -102,7 +102,7 @@ dagger.#Plan & {
 ```
 ### Action 1: The dependencies
 
-```yml
+```
 deps: docker.#Build & {
     steps: [
         docker.#Pull & {
