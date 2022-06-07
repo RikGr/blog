@@ -14,10 +14,10 @@
 </ul>
 
 ## Find me here 
+- [Twitter](https://twitter.com/RikGroenewoud)
 - [LinkedIn](https://www.linkedin.com/in/rikgroenewoud/)
-- [Github](https://github.com/RikGr)
 - [Xpirit](https://xpirit.com/team/rik-groenewoud/)
-
+- [Github](https://github.com/RikGr)
 
 
 
