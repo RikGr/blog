@@ -1,10 +1,10 @@
-
 ---
 layout: post
 title: Control an IoT device based on Microsoft Graph API data. Azure Logic Apps and Azure Functions make it easy! 
 author: Rik Groenewoud
 tags: microsoft azure iot logicapps azurefunctions powershell
 ---
+
 ## Intro
 One of latest additions of spaces we deliver solutions for at Xpirit is the rather broad subject of "Internet of Things" also known as IoT. We call it Smart & Connected services. The idea is to accelerate the IoT journey of our customers. To make all employees familiar and enthusiastic about this subject, everyone got a IoT LED light called "Blinky". We used it to play around and do workshops with it to learn what Azure has to offer when it comes to IoT.
 
