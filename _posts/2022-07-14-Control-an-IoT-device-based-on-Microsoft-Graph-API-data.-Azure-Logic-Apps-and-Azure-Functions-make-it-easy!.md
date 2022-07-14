@@ -17,7 +17,7 @@ Inspired by all kinds of cool use cases from my colleagues such as:
  - Change the color of Blinky based on the room temperature
  - etc. 
  
-I also came up with an idea of my own.What if could get a warning signal when I have an appointment in my Outlook Calendar? 
+I also came up with an idea of my own. What if could get a warning signal when I have an appointment in my Outlook Calendar? 
 Since I do not always have Outlook open, there is always the risk of missing a Teams call of any other appointment. An extra visual warning would be a great help!
 My idea was to give Blinky a pulsing red light when an appointment is within 5 minutes of its scheduled start time.
 ## Sketch and outline of the solution 
