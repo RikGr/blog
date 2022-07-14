@@ -6,32 +6,35 @@ tags: microsoft azure iot logicapps azurefunctions powershell
 ---
 
 ## Intro
-One of services we deliver at Xpirit is about "Internet of Things", also known as IoT. We call it Smart & Connected services. The idea is to accelerate the IoT journey of our customers. Since the Xpirit IoT team only started last year, they had a great idea to make all employees familiar and enthusiastic about this subject. For Christmas 2021 everyone got an IoT LED light called "Blinky". They then organized some cool workshops to learn what is IoT in the first place and then on what Microsoft Azure has to offer when it comes to IoT. Of course there as plenty of time to play around and to figure out what we could make Blinky do through code.  Since I only joined Xpirit in April I was lucky there was a spare Blinky left and so I also became the proud owner of this epic device: 
+One of the services we deliver at Xpirit is centered around the concept of "Internet of Things", also known as IoT. We call this Smart & Connected services. The idea is to accelerate the IoT journey of our customers. Since the Xpirit IoT team only started last year, they had a great idea to make all employees familiar and enthusiastic about this subject. For Christmas 2021 everyone got an IoT LED light called "Blinky". They then organized some cool workshops to learn what is IoT and on what Azure has to offer when it comes to IoT. Of course there was plenty of time to play around and to figure out what we could make Blinky do through code.  Since I only joined Xpirit in April, I was lucky there was a spare one left and so I also became the proud owner of this epic device: 
 
 ![Blinky](/images/blog-3.1.jpg)
+
+For those interested where Blinky is made of; the heart of the device is a [ESP8266 NodeMCU](https://randomnerdtutorials.com/projects-esp8266/) and to control it we use [Arduino](https://www.arduino.cc/en/software). Please follow the links if you want to know more.
+
 ## My idea
 Inspired by all kinds of cool use cases from my colleagues such as: 
 
  - make the LEDs go pulsing like Kit from Knight Rider
  - turn Blinky on when you are in a live Teams call 
  - Change the color of Blinky based on the room temperature
- - etc. 
  
 I also came up with an idea of my own. What if could get a warning signal when I have an appointment in my Outlook Calendar? 
-Since I do not always have Outlook open, there is always the risk of missing a Teams call of any other appointment. An extra visual warning would be a great help!
+Since I do not always have Outlook open, there is always the risk of missing a Teams call or any other appointment. An extra visual warning would be a great help!
+
 My idea was to give Blinky a pulsing red light when an appointment is within 5 minutes of its scheduled start time.
 ## Sketch and outline of the solution 
 I came up with the following infrastructure to make this happen: 
 
 ![sketch](/images/blog-3.2.png)
 
-- I use a Logic App to authenticate with my Outlook Calendar in an easy way and retrieve all my appointments via the Office 365 Outlook "Get Events" action. 
-- Next, I put the retrieved JSON with all my appointments to a storage account. 
+- I use a Logic App to authenticate with my Outlook Calendar and retrieve all my appointments via the Office 365 Outlook "Get Events" action. This action leverages the Microsoft Graph API to get the data in. This Logic App runs every minute.
+- Next, I put the retrieved JSON file with all my appointments to a storage account. 
 - Finally the logic app sends a POST request to the Function App 1 to let it know it can grab new data from the storage account. 
 
 ![logic app](/images/blog-3.3.png)
 
-The next step is to pick up this raw data and do some calculations on it. This happens in the Function App 1. Using Powershell it picks up the data from the storage account and see if there are appointments within 5 minutes. If so, it sends a POST request out to the second Function App. 
+The next step is to pick up this raw data and do some calculations on it. This happens in the Function App 1. Using Powershell it picks up the data from the storage account and calculates if there are appointments within 5 minutes. Based on the results it sends a POST request out to the second Function App. 
 Below you see the script of Function App 1 (the script that I actually wrote myself):
 
 ```powershell
@@ -103,11 +106,10 @@ Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         Body       = $body
     })
 ```
-Lastly, the Function App 2 contains the code that tells Blinky what to do. Based on the posted request it sends a POST request for a pulsing red light, or it turns Blinky into mode 0 which effectively turns the light off.
-So the actual control of the IoT device is in Function App 2 it sends the mentioned POST request to Azure IoT Hub where my Blinky is registered and from there it sends the signal towards the physical device itself (using wifi). 
+Lastly, the Function App 2 contains the code that actually sends the configuration of the LEDs towards Blinky. Based on the body of the POST request it either sends the config for a pulsing red light, or it turns Blinky into mode 0 which effectively turns the light off. 
+This works because my Blinky is registered in Azure IoT Hub. In this solution lives the "digital twin" of the physical device where the Azure Function 2 can talk to. By calling the digital twin it sends the config for the LEDs towards the physical device itself (using wifi). 
 
-A little bit on the hardware of Blinky. The heart of the device is a [ESP8266 NodeMCU](https://randomnerdtutorials.com/projects-esp8266/) and to control it we use [Arduino](https://www.arduino.cc/en/software). Please follow the links if you want to know more.
 ## Conclusion
-What I think is cool about this project, is that with some easy-to-use tools like the Logic- and Function Apps, I made my plan a reality with no advanced coding skills required. When I started thinking about how this should work, I was struggling with how to authenticate to my personal Calendar and thought about writing one big script to do all the work. The moment I took a step back and looked at what Azure had to offer out-of-the-box, it turned out I could do this simpler, secure and surprisingly stable as well: since this application is live it kept on running ever since!
+What I think is cool about this little project, is that with some easy-to-use tools like the Logic- and Function Apps, I made my plan a reality with no advanced coding skills required. When I started thinking about how this should work, I was struggling with how to authenticate to my personal Calendar and thought about writing one big script to do all the work. The moment I took a step back and looked at what Azure had to offer out-of-the-box, it turned out I could do this simpler, secure and surprisingly stable as well: since this application is live it kept on running ever since!
 
 To me this is the power of the low code solutions within the Azure ecosystem: Let Azure do the work for you and make powerful cloud computing solutions accessible for everybody.
