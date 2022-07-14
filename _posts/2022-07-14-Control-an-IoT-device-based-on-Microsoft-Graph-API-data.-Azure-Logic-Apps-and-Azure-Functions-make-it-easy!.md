@@ -6,7 +6,7 @@ tags: microsoft azure iot logicapps azurefunctions powershell
 ---
 
 ## Intro
-One of services we deliver at Xpirit is about "Internet of Things", also known as IoT. We call it Smart & Connected services. The idea is to accelerate the IoT journey of our customers. Since the Xpirit IoT team only started last year, they had a great idea to make  all employees familiar and enthusiastic about this subject. For Christmas 2021 everyone got a IoT LED light called "Blinky". They then organized some cool workshops to play around and to learn what is IoT in the first place and then on what Microsoft Azure has to offer when it comes to IoT. Since I only joined Xpirit in April I was lucky there was a spare Blinky left and so I also became the proud owner of this epic device: 
+One of services we deliver at Xpirit is about "Internet of Things", also known as IoT. We call it Smart & Connected services. The idea is to accelerate the IoT journey of our customers. Since the Xpirit IoT team only started last year, they had a great idea to make all employees familiar and enthusiastic about this subject. For Christmas 2021 everyone got an IoT LED light called "Blinky". They then organized some cool workshops to learn what is IoT in the first place and then on what Microsoft Azure has to offer when it comes to IoT. Of course there as plenty of time to play around and to figure out what we could make Blinky do through code.  Since I only joined Xpirit in April I was lucky there was a spare Blinky left and so I also became the proud owner of this epic device: 
 
 ![Blinky](/images/blog-3.1.jpg)
 ## My idea
