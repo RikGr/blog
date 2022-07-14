@@ -6,14 +6,14 @@ tags: microsoft azure iot logicapps azurefunctions powershell
 ---
 
 ## Intro
-One of the services we deliver at Xpirit is centered around the concept of "Internet of Things", also known as IoT. We call this Smart & Connected services. The idea is to accelerate the IoT journey of our customers. Since the Xpirit IoT team only started last year, they had a great idea to make all employees familiar and enthusiastic about this subject. For Christmas 2021 everyone got an IoT LED light called "Blinky". They then organized some cool workshops to learn what is IoT and on what Azure has to offer when it comes to IoT. Of course there was plenty of time to play around and to figure out what we could make Blinky do through code.  Since I only joined Xpirit in April, I was lucky there was a spare one left and so I also became the proud owner of this epic device: 
+One of the services we deliver at Xpirit is centered around the concept of "Internet of Things", also known as IoT. We call this Smart & Connected services. The idea is to accelerate the IoT journey of our customers. Since the Xpirit IoT team only started last year, they had a great idea to make all employees familiar and enthusiastic about this subject. For Christmas 2021 everyone got an IoT LED light called "Blinky". The IoT team then organized some cool workshops to learn some of the fundamentals on IoT and then elaborated on what Azure has to offer on this subject. Of course there was plenty of time to play around and to figure out what we could make Blinky do through code. Since I only joined Xpirit in April, I was lucky there was a spare one left and so I also became the proud owner of this epic device: 
 
 ![Blinky](/images/blog-3.1.jpg)
 
 For those interested where Blinky is made of; the heart of the device is a [ESP8266 NodeMCU](https://randomnerdtutorials.com/projects-esp8266/) and to control it we use [Arduino](https://www.arduino.cc/en/software). Please follow the links if you want to know more.
 
 ## My idea
-Inspired by all kinds of cool use cases from my colleagues such as: 
+Inspired by all kinds of cool use cases from my colleagues, such as: 
 
  - make the LEDs go pulsing like Kit from Knight Rider
  - turn Blinky on when you are in a live Teams call 
@@ -108,7 +108,6 @@ Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
 ```
 Lastly, the Function App 2 contains the code that actually sends the configuration of the LEDs towards Blinky. Based on the body of the POST request it either sends the config for a pulsing red light, or it turns Blinky into mode 0 which effectively turns the light off. 
 This works because my Blinky is registered in Azure IoT Hub. In this solution lives the "digital twin" of the physical device where the Azure Function 2 can talk to. By calling the digital twin it sends the config for the LEDs towards the physical device itself (using wifi). 
-
 ## Conclusion
 What I think is cool about this little project, is that with some easy-to-use tools like the Logic- and Function Apps, I made my plan a reality with no advanced coding skills required. When I started thinking about how this should work, I was struggling with how to authenticate to my personal Calendar and thought about writing one big script to do all the work. The moment I took a step back and looked at what Azure had to offer out-of-the-box, it turned out I could do this simpler, secure and surprisingly stable as well: since this application is live it kept on running ever since!
 
