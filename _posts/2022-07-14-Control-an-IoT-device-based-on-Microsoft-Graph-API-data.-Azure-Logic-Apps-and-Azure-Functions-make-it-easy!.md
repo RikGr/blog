@@ -6,7 +6,8 @@ tags: microsoft azure iot logicapps azurefunctions powershell
 ---
 
 ## Intro
-One thing I learned in the last couple of months, is that things escalate quickly here at Xpirit. A great example is the [complete webshop](https://swag.xpirit.com/) for our Xpirit swag that evolved from the simple question how we could get swag on-demand. Or the extraordinary 10+ course diner at the innovation day I talked about in my [last blog](https://www.cloudwoud.nl/2022/06/03/Dagger-Xpirit-Innovation-Day.html). 
+One thing I learned in the last couple of months, is that things escalate quickly at Xpirit. A great example is the [complete webshop](https://swag.xpirit.com/) for our Xpirit swag that evolved from the simple question how we could get swag on-demand. Or the extraordinary 10+ course diner at the innovation day I talked about in my [last blog](https://www.cloudwoud.nl/2022/06/03/Dagger-Xpirit-Innovation-Day.html). 
+
 Another example was the Christmas gift of 2021. For the full story read the article "The epic story of Blinky" in our [magazine](https://xpirit.com/wp-content/uploads/2022/03/Xpirit_XPRT_magazine_12_def.pdf?utm_campaign=Xpirit%20-%20Magazine%2012&utm_source=download-page) but in short: from someone suggesting during lunch to do something creative and crazy this year as a christmas gift, it escalated to a hand-crafted wooden LED IoT device called "BLinky". The device works on wifi and is managed through Azure IoT hub. Together with the device came some cool workshops from our IoT team to learn the fundamentals of IoT and on what Azure has to offer in the IoT realm. Of course there was plenty of time to play around and to figure out what we could make Blinky do through code.
 Since I joined Xpirit only since April, I was lucky there was a spare one left and so I also became the proud owner of this epic device: 
 
