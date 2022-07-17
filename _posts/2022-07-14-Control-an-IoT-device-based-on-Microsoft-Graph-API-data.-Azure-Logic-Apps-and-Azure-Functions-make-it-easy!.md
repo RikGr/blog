@@ -115,3 +115,18 @@ This works because my Blinky is registered in Azure IoT Hub. In this solution li
 What I think is cool about this little project, is that with some easy-to-use tools like the Logic Apps and Azure Functions, I made my plan a reality with no advanced coding skills required. When I started thinking about how this should work, I was struggling with how to authenticate to my personal Calendar and thought about writing one big script to do all the work. The moment I took a step back and looked at what Azure had to offer out-of-the-box, it turned out I could do this simpler, secure and surprisingly stable as well: since this application is live it kept on running ever since!
 
 To me this is the power of the low code solutions within the Azure ecosystem: Let Azure do the work for you and make powerful cloud computing solutions accessible for everybody.
+
+<script src="https://giscus.app/client.js"
+        data-repo="RikGr/cloudwoud"
+        data-repo-id="R_kgDOHLlC9w"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOHLlC984CO_2O"
+        data-mapping="pathname"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
