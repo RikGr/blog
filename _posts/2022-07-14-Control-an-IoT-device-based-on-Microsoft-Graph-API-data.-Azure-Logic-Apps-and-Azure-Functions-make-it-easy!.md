@@ -33,12 +33,12 @@ I came up with the following infrastructure to make this happen:
 
 - I use a Logic App to authenticate with my Outlook Calendar and retrieve all my appointments via the Office 365 Outlook "Get Events" action. This action leverages the Microsoft Graph API to get the data in. This Logic App runs every minute.
 - Next, I put the retrieved JSON file with all my appointments to a storage account. 
-- Finally the logic app sends a POST request to the Function App 1 to let it know it can grab new data from the storage account. 
+- Finally the logic app sends a POST request to the Function 1 to let it know it can grab new data from the storage account. 
 
 ![logic app](/images/blog-3.3.png)
 
-The next step is to pick up this raw data and do some calculations on it. This happens in the Function App 1. Using Powershell it picks up the data from the storage account and calculates if there are appointments within 5 minutes. Based on the results it sends a POST request out to the second Function App. 
-Below you see the script of Function App 1 (the script that I actually wrote myself):
+The next step is to pick up this raw data and do some calculations on it. This happens in the Function 1. Using Powershell it picks up the data from the storage account and calculates if there are appointments within 5 minutes. Based on the results it sends a POST request out to the second Function. 
+Below you see the script of Function 1 (the script that I actually wrote myself):
 
 ```powershell
 using namespace System.Net
@@ -109,9 +109,9 @@ Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
         Body       = $body
     })
 ```
-Lastly, the Function App 2 contains the code that actually sends the configuration of the LEDs towards Blinky. Based on the body of the POST request it either sends the config for a pulsing red light, or it turns Blinky into mode 0 which effectively turns the light off. 
+Lastly, the Function 2 contains the code that actually sends the configuration of the LEDs towards Blinky. Based on the body of the POST request it either sends the config for a pulsing red light, or it turns Blinky into mode 0 which effectively turns the light off. 
 This works because my Blinky is registered in Azure IoT Hub. In this solution lives the "digital twin" of the physical device where the Azure Function 2 can talk to. By calling the digital twin it sends the config for the LEDs towards the physical device itself (using wifi). 
 ## Conclusion
-What I think is cool about this little project, is that with some easy-to-use tools like the Logic- and Function Apps, I made my plan a reality with no advanced coding skills required. When I started thinking about how this should work, I was struggling with how to authenticate to my personal Calendar and thought about writing one big script to do all the work. The moment I took a step back and looked at what Azure had to offer out-of-the-box, it turned out I could do this simpler, secure and surprisingly stable as well: since this application is live it kept on running ever since!
+What I think is cool about this little project, is that with some easy-to-use tools like the Logic Apps and Azure Functions, I made my plan a reality with no advanced coding skills required. When I started thinking about how this should work, I was struggling with how to authenticate to my personal Calendar and thought about writing one big script to do all the work. The moment I took a step back and looked at what Azure had to offer out-of-the-box, it turned out I could do this simpler, secure and surprisingly stable as well: since this application is live it kept on running ever since!
 
 To me this is the power of the low code solutions within the Azure ecosystem: Let Azure do the work for you and make powerful cloud computing solutions accessible for everybody.
