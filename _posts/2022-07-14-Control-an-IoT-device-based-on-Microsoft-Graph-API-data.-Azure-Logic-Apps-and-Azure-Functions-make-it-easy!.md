@@ -81,7 +81,7 @@ foreach ($r in $result) {
 
     if ($t.TotalMinutes -GT -5) {
         $body = '{
-            "deviceId": "bare-black-canary",
+            "deviceId": "<device-id>",
             "mode": 2,
             "brightness": 255,
             "saturation": 255,
@@ -93,7 +93,7 @@ foreach ($r in $result) {
 
     else {
         $body = '{
-            "deviceId": "bare-black-canary",
+            "deviceId": "<device-id>",
             "mode": 0,
             "brightness": 255,
             "saturation": 255,
