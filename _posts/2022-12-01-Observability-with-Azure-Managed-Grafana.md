@@ -5,14 +5,16 @@ author: Rik Groenewoud
 tags: microsoft azure observability grafana
 ---
 
-During my visit to Monitorama 2022 in Portland it became clear to me that the phenomenon of "Observability" is here to stay. 
-The people from Honeycomb.io  even wrote an O'Reilly book on the subject called: [Observability Engineering](https://info.honeycomb.io/observability-engineering-oreilly-book-2022). 
+During my visit to Monitorama 2022 it became clear to me that the phenomenon of "Observability" is here to stay. 
+The people from Honeycomb.io even wrote an O'Reilly book on the subject called: [Observability Engineering](https://info.honeycomb.io/observability-engineering-oreilly-book-2022). 
 
-My initial sceptics  made place for enthusiasm. After I read the book and learned more on what is meant by Observability, my initial skepticism ("This must be the new buzz word for plain monitoring!") made place for enthusiasm. I truly believe it can help it can help DevOps Engineers running their distributed operations in the cloud. 
+After I read the book and learned more on what is meant by Observability, my initial skepticism ("This must be the new buzz word for plain monitoring!") made place for enthusiasm. I truly believe it can help DevOps Engineers running complex distributed operations in the cloud. 
 
-So when the call for papers came for our bi-annual XPRT magazine, I was eager to write an article on this subject. Together with my good colleague [Casper Dijkstra](https://xpirit.com/team/casper-dijkstra/) we decided to write on Observability theory and to bring this into practice with Azure Managed Grafana. 
-Below I give a short summary of the article to hopefully trigger you to read the full version via the link provided at the bottom of this post.
+So when the call for papers came for our bi-annual XPRT magazine, I was eager to write an article on this subject. Together with my good colleague [Casper Dijkstra](https://xpirit.com/team/casper-dijkstra/) we decided to write on Observability theory and how to bring this into practice with Azure Managed Grafana. 
+
+Below I give a short summary of the article. This hopefully triggers you to read the full version via the link provided at the bottom of this post.
 ## Summary
+
 **Observability**
 
 The definition used in the book "Observability Engineering": 
@@ -22,8 +24,8 @@ The definition used in the book "Observability Engineering":
 **Azure and Observability**
 
 Microsoft embraces the idea of Observability. They advocate the use of resources like Log Analytics Workspaces to centralize all logging and metric data and make it possible to query this combined data. 
-For visualization Azure has basic dashboard functionality. We argue that Grafana can be a great addition to this.
-With the new Azure Managed Grafana offering it becomes very easy to start using Grafana. 
+For visualization Azure has basic dashboard functionality. We argue that Grafana can be a great addition to this. With the new Azure Managed Grafana offering it becomes very easy to start using Grafana. 
+
 The most important assets are: 
 
 - Usability: Quickly setup good looking dashboards with lots of choice in visualizations
