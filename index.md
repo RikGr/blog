@@ -4,7 +4,7 @@
 {% endif %}
 </head>
 
-## Blog posts
+## Blogs
 <ul>
   {% for post in site.posts %}
     <li>
