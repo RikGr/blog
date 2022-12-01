@@ -6,7 +6,7 @@ github:
 # Google Analytics
 google_analytics: UA-65900970-2
 
-logo: assets/logo.png
+logo: assets/logo.jpg
 
 comments: 
   provider: gisqus
