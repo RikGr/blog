@@ -26,13 +26,13 @@ For visualization Azure has basic dashboard functionality. We argue that Grafana
 With the new Azure Managed Grafana offering it becomes very easy to start using Grafana. 
 The most important assets are: 
 
-- Usability: Quickly setup good looking dashboards with lots of choice in visualizations.
+- Usability: Quickly setup good looking dashboards with lots of choice in visualizations
 - Bring together multiple data sources, also from outside of Azure (i.e. Azure DevOps)
-- Not only vizualize but also dive into the data by quering realtime logging and metrics
-- Large community with lots of dashboard templates 
-- Integrate dashboarding in your DevOps way of working by deploying dashboards as code using CI/CD tooling 
+- Not only visualize but also dive into the data by querying realtime logging and metrics from multiple data sources
+- Large community with lots of dashboard templates to quickly be up to speed
+- Integrate dashboards in your DevOps way of working by deploying dashboards as code using CI/CD tooling 
 
-We then show a basic setup of how to run dashboards-as-code using a DevOps Pipeline and tell more about the cost aspect of this offering
+We then show a basic setup of how to run dashboards-as-code using a DevOps Pipeline and tell more about the cost aspect of this offering.
 
 **Conlusion**
 
