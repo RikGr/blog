@@ -41,4 +41,4 @@ We then show a basic setup of how to run dashboards-as-code using a DevOps Pipel
 By bringing all these data sources together and combining them in a smart and useful way in Azure Managed Grafana, observability becomes something real and will add value to the existing tools that Azure offers. In the current age of highly complex distributed systems it is no longer about only trying to prevent issues from occurring, but to make sure engineers have the right tools to literally observe what is going on and to locate the issues as quickly as possible. 
 
 ## Full version
-[Link](https://xpirit.com/wp-content/uploads/2022/10/Xpirit_XPRT_magazine_13_final.pdf?utm_campaign=Xpirit%20-%20Magazine%2013&utm_source=download-page) to the magazine with our article from page 45.
+[Link](https://xpirit.com/wp-content/uploads/2022/10/Xpirit_XPRT_magazine_13_final.pdf?utm_campaign=Xpirit%20-%20Magazine%2013&utm_source=download-page) to the magazine with our article **from page 45**.
