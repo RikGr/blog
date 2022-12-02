@@ -21,7 +21,7 @@ The definition used in the book "Observability Engineering":
 
 *“... our definition of “observability” for software systems is a measure of how well you can understand and explain any state your system can get into no matter how novel or bizarre”*
 
-**Azure and Observability**
+**Azure Managed Grafana and Observability**
 
 Microsoft embraces the idea of Observability. They advocate the use of resources like Log Analytics Workspaces to centralize all logging and metric data and make it possible to query this combined data. 
 For visualization Azure has basic dashboard functionality. We argue that Grafana can be a great addition to this. With the new Azure Managed Grafana offering it becomes very easy to start using Grafana. 
