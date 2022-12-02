@@ -42,3 +42,19 @@ By bringing all these data sources together and combining them in a smart and us
 
 ## Full version
 [Link](https://xpirit.com/wp-content/uploads/2022/10/Xpirit_XPRT_magazine_13_final.pdf?utm_campaign=Xpirit%20-%20Magazine%2013&utm_source=download-page) to the magazine with our article **from page 45**.
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="RikGr/cloudwoud"
+        data-repo-id="R_kgDOHLlC9w"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOHLlC984CO_2O"
+        data-mapping="pathname"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
