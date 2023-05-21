@@ -11,11 +11,12 @@
       <a href="{{ post.url }}">{{ post.title }}</a> {{ post.date | date: "%B %d, %Y" }}
     </li>
   {% endfor %}
-</ul>  
+</ul>
 
 ## Find me here
-
+<ul class="no-bullets">
 [Twitter](https://twitter.com/RikGroenewoud)
 [LinkedIn](https://www.linkedin.com/in/rikgroenewoud/)
 [Xpirit](https://xpirit.com/team/rik-groenewoud/)
 [Github](https://github.com/RikGr)
+</ul>
