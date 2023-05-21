@@ -188,7 +188,7 @@ We are very happy with the results of this project. It provides for a flexible a
 
 I hope this blog post will help you to get started with Access Packages, the Microsoft Graph API and the Microsoft Graph PowerShell module. If you have any questions or comments, please let me know in the comments below.
 
-If you want to learn more about access packages, I also wrote an article in the latest edition of the [XPRT Magazine](https://hubs.ly/Q01Pxdxx0) on this topic.
+If you want to learn more about access packages, I also wrote an article in the latest edition of the [XPRT Magazine](https://hubs.ly/Q01Pxdxx0) on this topic (from page 50).
 
 <script src="https://giscus.app/client.js"
         data-repo="RikGr/cloudwoud"
