@@ -98,7 +98,7 @@ The pipeline looks like this:
 
 ```yaml
 
-pool: "ERTMS-AzDoAgents-Ubuntu"
+pool: "ubuntu-latest"
 
 parameters:
   - name: paths
