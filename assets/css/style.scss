@@ -26,3 +26,9 @@ a:hover {
 p {
     text-align: justify;
 }
+
+ul.no-bullets {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
