@@ -12,7 +12,7 @@
     </li>
   {% endfor %}
 </ul>
-</br>
+<br>
 
 ## Find me here
 
