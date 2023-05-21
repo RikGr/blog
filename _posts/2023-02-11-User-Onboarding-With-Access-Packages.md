@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Azure AD Access Packages to the resque!
+title:  Azure AD Access Packages to the rescue!
 author: Rik Groenewoud
 tags: microsoft azure azuread aad identitymanagement
 ---
@@ -13,7 +13,7 @@ Luckily my good colleague [Hans Bakker](https://xpirit.com/team/hans-bakker/) ca
 
 ## What are Azure AD Access Packages?
 
-To describe this pretty comprehensive feature in a few words is not easy. To my mind access packages can be used to centralize multiple resources into one entity in which Azure AD users can be enrolled. These users can be added by administrators but also self-enrollment is possible with or without approval steps. These enrollments can have a set life time or can set to indefinitely. So it is as service created to manage and govern identities, internal and external in a centralized way. Furthermore, enrollment using the Graph API is possible. This makes it possible to automate the enrollment of users into these access packages. This is exactly what we needed!
+To describe this pretty comprehensive feature in a few words is not easy. To my mind access packages can be used to centralize multiple resources into one entity in which Azure AD users can be enrolled. These users can be added by administrators but also self-enrollment is possible with or without approval steps. These enrollments can have a set life time or can set to indefinitely. It is as service created to manage and govern identities, internal and external in a centralized way. Furthermore, enrollment using the Graph API is possible. This makes it possible to automate the enrollment of users into these access packages. This is exactly what we needed!
 
 ## How did we leverage Access Packages?
 
