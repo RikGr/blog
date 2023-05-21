@@ -12,7 +12,7 @@
     </li>
   {% endfor %}
 </ul>
-
+</br>
 ## Find me here
 <ul class="no-bullets">
 [Twitter](https://twitter.com/RikGroenewoud)
