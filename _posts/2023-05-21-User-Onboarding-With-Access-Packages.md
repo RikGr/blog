@@ -79,7 +79,6 @@ foreach ($user in $newUsers) {
         Write-Host "NEW User $($user.InputObject) is added to Access Package"
     }
     else {
-
             $policy = $accessPackage.AccessPackageAssignmentPolicies[0]
             New-MgEntitlementManagementAccessPackageAssignmentRequest -AccessPackageId $accessPackage.Id -AssignmentPolicyId $policy.Id -TargetId $AADuser.Id
             Write-Host "User $($user.InputObject) is added to Access Package"
