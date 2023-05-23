@@ -48,10 +48,10 @@ Then for each array I started the background job like this:
     }
 ```
 
-The  ```-Argumentlist``` is the place where the parameters for the ```-scriptblock``` are set. In this case I passed in the storage account name, the array of containers, the target containers, the target storage account, the target token, the source token and the target token.
+The ```-Argumentlist``` is the place where the parameters for the ```-scriptblock``` are set. In this case I passed in the storage account name, the array of containers, the target containers, the target storage account, the target token, the source token and the target token.
 
 As soon as the jobs are running, ```Get-Job``` can be used to see an overview of all running Jobs and there status.
-```Receive-Job```  can get the output of the job. Using the ```-keep```switch the history of the output is preserved.
+```Receive-Job``` can get the output of the job. Using the ```-keep``` switch the history of the output is preserved.
 
 This was basically it. You can test out what is the best container to job ratio for your use case. For one of the storage accounts I used 5 parallel jobs, for others I used more. The problem with too much simultaneous jobs is that you will run out of memory and it will take a long time before the jobs start running. So you have to find the right balance for your use case.
 
