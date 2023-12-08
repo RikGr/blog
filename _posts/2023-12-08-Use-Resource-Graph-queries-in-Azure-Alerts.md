@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Use Resource Graph queries in Azure Alerts
+title:  Use Resource Graph Queries in Azure Alerts
 author: Rik Groenewoud
 tags: microsoft azure obserbility alerts monitoring
 ---
