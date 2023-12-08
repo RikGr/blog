@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Use Resource Graph API queries in Azure Alerts
+title:  Use Resource Graph queries in Azure Alerts
 author: Rik Groenewoud
 tags: microsoft azure obserbility alerts monitoring
 ---
@@ -9,9 +9,9 @@ tags: microsoft azure obserbility alerts monitoring
 Over the last years, I tried several methods to keep track of the expiration date of manually imported SSL certificates in Azure.  I created rather extensive PS scripts that scraped all SSL certificates from App Services, App Gateways. By running this script in a Logic App, I could throw alerts when the expiration date was coming close.
 Another approach I tried,was the SSL health check from the Availability monitoring in App Insights. This solution looked pretty good, but in practice ít caused confusion. The availability alert triggered on SSL certicates less than 30 days before expiration while the website was perfectly reachable. It was not clear that this alert could also be the SSL certificate that was about to be expired in 30 days. Furthermore, you have to make sure that all custom domains are covered with availability alerts. And what about the SSL certificates on App Gateways?
 
-# Resource Graph API alerts
+# Resource Graph alerts
 
- Recently I found out that it now is possible to use **Resource Graph API queries** inside Azure Alerts. This makes it possible to query on resource properties and create an alert based on values on these properties. This means I can query for the expiration date of SSL certificates directly and create an alert based on that query.
+ Recently I found out that it now is possible to use **Resource Graph queries** inside Azure Alerts. This makes it possible to query on resource properties and create an alert based on values on these properties. This means I can query for the expiration date of SSL certificates directly and create an alert based on that query.
 
 This is how I approach the creation of such an alert:
 
@@ -47,7 +47,7 @@ This is the end result of the condition:
 
 # Other use cases?
 
-Another alert I created by a using Resource Graph API kusto query is a check on the state of Logic Apps and Function Apps. When they are disabled, the alert triggers.
+Another alert I created by a using Resource Graph kusto query is a check on the state of Logic Apps and Function Apps. When they are disabled, the alert triggers.
 The queries look like this:
 
 ```kusto
