@@ -4,11 +4,11 @@ github:
   is_project_page: false
 
 # Google Analytics
-google_analytics: UA-65900970-2
+google_analytics: G-Z3VYWVK0CS
 
 logo: assets/logo.jpg
 
-comments: 
+comments:
   provider: gisqus
 
 giscus:

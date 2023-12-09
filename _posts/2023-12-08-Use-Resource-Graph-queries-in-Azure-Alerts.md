@@ -2,7 +2,7 @@
 layout: post
 title:  Use Resource Graph Queries in Azure Alerts
 author: Rik Groenewoud
-tags: microsoft azure obserbility alerts monitoring
+tags: microsoft azure observability alerts monitoring
 ---
 ## Intro
 
@@ -40,7 +40,6 @@ It is important to note that the **identity** of the alert must have **Reader** 
 This is the end result of the condition:
 
 ![Alert condition](/images/blog-7.1.png)
-
 
 ## Benefits
 
