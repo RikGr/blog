@@ -16,7 +16,7 @@
 
 ## Find me here
 
-- [Twitter](https://twitter.com/RikGroenewoud)
+- [X](https://twitter.com/RikGroenewoud)
 - [LinkedIn](https://www.linkedin.com/in/rikgroenewoud/)
 - [Xpirit](https://xpirit.com/team/rik-groenewoud/)
 - [Github](https://github.com/RikGr)
