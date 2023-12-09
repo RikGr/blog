@@ -35,6 +35,8 @@ arg("").Resources | where type == "microsoft.web/certificates" | extend Expirati
 
 For ```Measure``` I use ```Table Rows``` where Agregation is Count and Agregation granularity is 5 minutes. The ```threshold``` can be set to ```1```.
 
+It is important to note that the **identity** of the alert must have **Reader** access to the Log Analytics Workspace AND the resources you want to get data from. In my case I gave the system assigned identity reader role on subscription level to be sure all SSL certificates in the subscription are covered.
+
 This is the end result of the condition:
 
 ![Alert condition](/images/blog-7.1.png)
@@ -42,13 +44,12 @@ This is the end result of the condition:
 
 # Benefits
 
-- The main benefit I see is that you can use a normal alerts for You now don't have to have App Insights or manual scripting. You just can use a "normal" alert.
-- Because we now use a query you "scan" the selected scope for certificates. This way you are sure you don't miss any certificates
+- The main benefit I see, is that we now can use a "normal" alert to monitor on resource specific properties or conditions. It is no longer need to write your own scripts or use App Insights or come up with another workaround.
+- Wit a query we "scan" the selected scope for certificates. This way you we sure you don't miss any certificates
 
 # Other use cases?
 
-Another alert I created by a using Resource Graph kusto query is a check on the state of Logic Apps and Function Apps. When they are disabled, the alert triggers.
-The queries look like this:
+Another alert I created by a using Resource Graph Kusto query is a check on the state of Logic Apps and Function Apps. When they are disabled, the alert triggers. The queries looked like this:
 
 ```kusto
 arg("").resources | where type == "microsoft.logic/workflows" | where properties.state != "Enabled"
@@ -60,7 +61,7 @@ and
 arg("").resources | where type == "microsoft.web/sites" | where properties.kind == "functionapp" | where properties.state != "Running"
 ```
 
-If you have other nice use cases, please let me know in the comments.
+If you have other nice use cases, please let me know in the comments!
 
 <script src="https://giscus.app/client.js"
         data-repo="RikGr/cloudwoud"
