@@ -63,6 +63,11 @@ arg("").resources | where type == "microsoft.web/sites" | where properties.kind 
 
 If you have other nice use cases, please let me know in the comments!
 
+# Further Reading
+
+- [Announcement of this feature](https://azure.microsoft.com/en-us/updates/public-preview-azure-log-alerts-support-for-azure-resource-graph-arg/)
+- [Azure Docs on creating Log Alerts](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-create-log-alert-rule)
+
 <script src="https://giscus.app/client.js"
         data-repo="RikGr/cloudwoud"
         data-repo-id="R_kgDOHLlC9w"
