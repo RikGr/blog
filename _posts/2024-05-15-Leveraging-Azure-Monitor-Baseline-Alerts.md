@@ -8,7 +8,9 @@ tags: microsoft azure observability alerts monitoring
 ## Intro
 
 In the wonderful world of Microsoft Azure things are often easier said than done. Or to rephrase it a little bit: Often, things are easy in the beginning, but in the blink of an eye it is more complex than you could have ever imagined.
-A prime example of this is **managing alerts** for your resources. The creation of an alert rule itself is easy and for obvious metrics such as CPU or RAM it is not so difficult to come up with some thresholds and severity levels. But where to place alerts when we are managing and maintaining a large landscape of Azure Infrastructure such as an Enterprise Landing Zone? What are good thresholds and severity levels for different kinds of resources and alert types? How should we warn people when an alert is triggered? Who should be alerted? How to prevent a complete flood of alerts cause alert fatigue? These are the questions that are not so easy to answer.
+A prime example of this is **managing alerts** for your resources. The creation of an alert rule itself is easy and for obvious metrics such as CPU or RAM it is not so difficult to come up with some thresholds and severity levels.
+
+But where to place alerts when we are managing and maintaining a large landscape of Azure Infrastructure such as an Enterprise Landing Zone? What are good thresholds and severity levels for different kinds of resources and alert types? How should we warn people when an alert is triggered? Who should be alerted? How to prevent a complete flood of alerts cause alert fatigue? These are the questions that are not so easy to answer.
 
 Luckily, Microsoft together with the community, has been working on a solution for this: **Azure Monitor Baseline Alerts (AMBA)**. I will go into more detail on what this baseline is and how it can help you setup a proper set of alerts for your Azure environment.
 
@@ -17,11 +19,13 @@ Luckily, Microsoft together with the community, has been working on a solution f
 As this [official documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alert-options#azure-monitor-baseline-alerts-amba) states:
 
 *AMBA is a central repository that combines product group and field experience driven alert definitions that allow customers and partners to improve their observability experience through the adoption of Azure Monitor.*
+
 and:
 
 *AMBA has patterns that group alerts from different resource types to address specific scenarios. Azure landing zone (ALZ), which is also suitable for non-ALZ aligned customers, is a pattern of AMBA that collates platform alerts into a deployable at-scale solution.*
 
-For the ALZ scenario AMBA comes with an opinionated set of predefined alerts on the most common resources deployed in landing zones. To summarize it a great starting point and enabler to improve ALZ observability quickly. Because it is al parameterized, it is also easy to customize to your own needs and to tailor it for customer specific situations.
+For the landing zone scenario AMBA comes with an opinionated set of predefined alerts on the most common resources deployed in landing zones.
+To summarize, it a great starting point and enabler to improve landing zone observability quickly. Because it is al parameterized, it is also easy to customize to your own needs and to tailor it for customer specific situations.
 
 An important feature of AMBA is that is **policy-driven**. Instead of creating the alert resources themselves it consists policies to create the alerts on the specific resources if they are missing. Policy Intiatives are used to logically group the alert definitions together. With Policy Assignments you can assign the initiative to the preferred scope such as Management Groups or subscriptions.
 
