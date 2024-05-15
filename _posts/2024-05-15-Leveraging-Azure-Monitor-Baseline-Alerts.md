@@ -32,7 +32,7 @@ An important feature of AMBA is that is **policy-driven**. Instead of creating t
 The policies not only provide for creating alerts but also for creating processing rules. Processing rules are used to route the alerts to the right people or systems. This is done by creating Action Groups and linking them to the alerts. Within the action group you can choose to, for example send out an e-mail, SMS and/or to trigger a webhook.
 So not only the alerts itself are covered but also the process of warning people when an alert is triggered is covered.
 
-A great milestone for the AMBA initiative was the incorporation into the official Microsoft documentations. This was a big deal for the maintainers as this LinkedIn posts shows:
+A great milestone for the AMBA initiative was the incorporation into the official Microsoft documentation. This was a big deal for the maintainers as this LinkedIn posts shows:
 
 [![image](/images/blog-8.1.png)](https://www.linkedin.com/posts/bruno-gabrielli-4992528_create-alert-rules-for-an-azure-resource-activity-7166385933951352833-Dic3?utm_source=combined_share_message&utm_medium=member_desktop)
 
@@ -69,7 +69,7 @@ After the deployment of the AMBA alerts we started to receive alerts. This was a
 
 ## Conclusion
 
-The AMBA initiative is a great step forward in the world of Azure monitoring. It provides a great starting point for setting up alerts in your Azure environment. It is policy-driven and easy to deploy. The fact that it is parameterized makes it easy to adjust to your own needs. The only downside is that it is not yet supported by Terraform. But with some effort, you can set this up yourself.
+The AMBA initiative is a great new option in the world of Azure monitoring. It provides a great starting point for setting up alerts in your Azure environment. It is policy-driven and easy to deploy. The fact that it is parameterized makes it easy to adjust to your own needs. The only downside is that it is not yet supported by Terraform. But with some effort, you can set this up yourself.
 
 ## References
 
