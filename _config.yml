@@ -3,8 +3,6 @@ theme: jekyll-theme-minimal
 github:
   is_project_page: false
 
-# Google Analytics
-google_analytics: G-Z3VYWVK0CS
 
 logo: assets/logo.jpg
 

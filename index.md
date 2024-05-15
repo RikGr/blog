@@ -1,9 +1,3 @@
-<head>
-{% if site.google_analytics and jekyll.environment == 'production' %}
-{% include analytics.html %}
-{% endif %}
-</head>
-
 ## Blogs
 <ul class="no-bullets">
   {% for post in site.posts %}
