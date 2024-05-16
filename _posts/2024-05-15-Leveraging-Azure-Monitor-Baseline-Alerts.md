@@ -24,12 +24,13 @@ and:
 
 *AMBA has patterns that group alerts from different resource types to address specific scenarios. Azure landing zone (ALZ), which is also suitable for non-ALZ aligned customers, is a pattern of AMBA that collates platform alerts into a deployable at-scale solution.*
 
-For the landing zone scenario AMBA comes with an opinionated set of predefined alerts on the most common resources deployed in landing zones.
+What this means is that for a landing zone scenario AMBA comes with an opinionated set of predefined alerts on the most common resources deployed in landing zones. This makes it a powerfull tool to get a comprehensive set of alerts in place quickly. The alerts are based on best practices and are created by the Azure product group and field experience.
+
 To summarize, it a great starting point and enabler to improve landing zone observability quickly. Because it is al parameterized, it is also easy to customize to your own needs and to tailor it for customer specific situations.
 
 An important feature of AMBA is that is **policy-driven**. Instead of creating the alert resources themselves it consists policies to create the alerts on the specific resources if they are missing. Policy Intiatives are used to logically group the alert definitions together. With Policy Assignments you can assign the initiative to the preferred scope such as Management Groups or subscriptions.
 
-The policies not only provide for creating alerts but also for creating processing rules. Processing rules are used to route the alerts to the right people or systems. This is done by creating Action Groups and linking them to the alerts. Within the action group you can choose to, for example send out an e-mail, SMS and/or to trigger a webhook.
+The policies not only provide for creating alerts but also for creating **processing rules**. Processing rules are used to route the alerts to the right people or systems. This is done by creating Action Groups and linking them to the alerts. Within the action group you can choose to, for example send out an e-mail, SMS and/or to trigger a webhook.
 So not only the alerts itself are covered but also the process of warning people when an alert is triggered is covered.
 
 A great milestone for the AMBA initiative was the incorporation into the official Microsoft documentation. This was a big deal for the maintainers as this LinkedIn posts shows:
@@ -47,7 +48,7 @@ It describes the following methods:
 - Azure Pipelines
 - GitHub Actions
 
-The repository comes with all the necessary code and templates to deploy the alerts. The deployment guide is very clear and easy to follow. For our own landing zone however, the preferred Infrastructure as Code (IaC) tool is Terraform. Could I use Terraform to deploy the AMBA alerts?
+The repository comes with all the necessary code and templates to deploy the alerts. The deployment guide is clear and easy to follow. For our own landing zone however, the preferred Infrastructure as Code (IaC) tool is **Terraform**. Could I use Terraform to deploy the AMBA alerts?
 
 ## Transition to Terraform
 
@@ -69,7 +70,7 @@ After the deployment of the AMBA alerts we started to receive alerts. This was a
 
 ## Conclusion
 
-The AMBA initiative is a great new option in the world of Azure monitoring. It provides a great starting point for setting up alerts in your Azure environment. It is policy-driven and easy to deploy. The fact that it is parameterized makes it easy to adjust to your own needs. The only downside is that it is not yet supported by Terraform. But with some effort, you can set this up yourself.
+When you ask me, the AMBA initiative is a great new option in the world of Azure monitoring. It provides a great starting point for setting up alerts in your Azure environment at scale very quickly. It is policy-driven and easy to deploy. The fact that it is parameterized makes it easy to adjust to your own needs. The only downside is that it is not yet supported by Terraform. But with some effort, you can set this up yourself.
 
 ## References
 
